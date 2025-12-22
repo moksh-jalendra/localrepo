@@ -1,0 +1,143 @@
+/* feed.css - Fixed Colors */
+
+:root {
+    --primary-color: #ff3366;
+    --secondary-color: #00bfff;
+    --card-bg-color: #2a2a2a;
+    --bg-color: #1c1c1c;
+    --text-main: #f0f0f0;
+    --text-muted: #888;
+    
+    /* SKY BLUE PLAY BUTTON */
+    --play-color: #00bfff; 
+    
+    --stop-color: #ff4444;
+    --card-border: #333;
+    --track-bg: #1a1a1a;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+    --card-bg-color: #ffffff;
+    --bg-color: #f4f4f9;
+    --text-main: #111;
+    --text-muted: #666;
+    --card-border: #e0e0e0;
+    --track-bg: #f5f5f7;
+    --primary-color: #e62955;
+    --play-color: #0088cc; /* Slightly darker blue for readability */
+}
+
+#posts-feed { padding: 0 15px 80px 15px; max-width: 600px; margin: 0 auto; min-height: 200px; }
+.empty-feed { text-align: center; color: var(--text-muted); padding: 40px; border: 2px dashed var(--card-border); border-radius: 16px; margin-top: 20px; }
+
+/* PULL REFRESH */
+#pull-to-refresh { height: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; transition: height 0.2s; }
+.spinner-icon { font-size: 24px; color: var(--primary-color); transition: transform 0.3s; }
+#pull-to-refresh.refreshing { height: 60px; }
+#pull-to-refresh.refreshing .spinner-icon { animation: spin 1s linear infinite; }
+
+/* POST CARD */
+.post { background-color: var(--card-bg-color); margin-bottom: 20px; border-radius: 16px; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border: 1px solid var(--card-border); transition: transform 0.2s; }
+.post-header { display: flex; align-items: center; margin-bottom: 12px; }
+.user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--secondary-color), #0088cc); color: white; font-weight: bold; font-size: 1.2em; display: flex; justify-content: center; align-items: center; margin-right: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.header-info { display: flex; flex-direction: column; }
+.username { color: var(--text-main); font-weight: 700; font-size: 1em; }
+.time { font-size: 0.75em; color: var(--text-muted); }
+
+.post-content { padding-bottom: 10px; }
+.post-caption { font-size: 0.95em; color: var(--text-main); margin-bottom: 12px; line-height: 1.5; word-wrap: break-word; }
+
+/* AUDIO CARD */
+.audio-card { background: var(--track-bg); border-radius: 10px; padding: 12px; border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 8px; }
+.track-info { display: flex; align-items: center; }
+.music-icon { font-size: 1.2em; margin-right: 10px; }
+.track-title { font-weight: bold; color: var(--primary-color); font-size: 0.9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.track-tag { font-size: 0.6em; background: rgba(100,100,100,0.2); color: var(--text-muted); padding: 2px 6px; border-radius: 4px; margin-left: auto; text-transform: uppercase; font-weight: bold; }
+
+.audio-progress-container { width: 100%; height: 6px; background: rgba(100,100,100,0.2); border-radius: 3px; overflow: hidden; }
+.audio-progress-bar-inner { height: 100%; width: 0%; background: var(--play-color); transition: width 0.1s linear; }
+
+/* ACTIONS */
+.post-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; padding-top: 12px; border-top: 1px solid rgba(100,100,100,0.1); }
+.social-actions { display: flex; gap: 8px; }
+.action-btn { border: none; border-radius: 20px; padding: 8px 16px; font-size: 0.85em; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+
+.listen-btn { background: var(--play-color); color: #fff; box-shadow: 0 2px 8px rgba(0, 191, 255, 0.3); }
+.listen-btn:hover { filter: brightness(1.1); transform: scale(1.02); }
+.listen-btn.playing { background: var(--stop-color); box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3); }
+
+.like-btn, .save-btn { background: transparent; color: var(--text-muted); border: 1px solid transparent; }
+.like-btn:hover, .save-btn:hover { background: rgba(100,100,100,0.1); color: var(--text-main); }
+.active-like { color: #ff3366; font-weight: bold; }
+.count { font-size: 0.9em; font-weight: normal; opacity: 0.8; }
+
+/* LOADING */
+.skeleton { background: var(--card-bg-color); border: 1px solid var(--card-border); border-radius: 16px; padding: 15px; margin-bottom: 20px; position: relative; overflow: hidden; }
+.skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); animation: shimmer 1.5s infinite; }
+body.light-mode .skeleton::after { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent); }
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.skeleton-header { display: flex; align-items: center; margin-bottom: 15px; }
+.skeleton-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(100,100,100,0.2); margin-right: 12px; }
+.skeleton-info { flex-grow: 1; }
+.skeleton-line { height: 12px; background: rgba(100,100,100,0.2); border-radius: 4px; width: 50%; margin-bottom: 6px; }
+.skeleton-line.short { width: 30%; }
+.skeleton-block { width: 100%; height: 70px; background: rgba(100,100,100,0.2); border-radius: 10px; margin-top: 15px; }
+
+#scroll-trigger { height: 60px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px; }
+.loader-spinner { width: 24px; height: 24px; border: 3px solid rgba(100,100,100,0.2); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; display: none; }
+.loader-spinner.active { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* feed.css - Add Red Dot Style */
+
+/* Notification Badge */
+.nav-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4444;
+    border-radius: 50%;
+    border: 2px solid var(--card-bg-color); /* Makes it pop */
+    display: none; /* Hidden by default */
+    z-index: 10;
+}
+.notification-dot.visible {
+    display: block;
+}
+/* Add to feed.css */
+
+.post-header-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Make whole header clickable */
+}
+
+.post-header-link:hover .username {
+    color: var(--secondary-color); /* Highlight name on hover */
+    text-decoration: underline;
+}
+
+.social-group {
+    display: flex;
+    gap: 10px;
+}
+
+.like-btn {
+    border: 1px solid rgba(100,100,100,0.3);
+    min-width: 60px;
+    justify-content: center;
+}
+
+.active-like {
+    border-color: #ff3366;
+    background: rgba(255, 51, 102, 0.1);
+    color: #ff3366;
+}

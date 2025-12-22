@@ -1,0 +1,54 @@
+/* ai.css */
+
+.ai-chat-screen {
+    display: flex; flex-direction: column;
+    height: calc(100vh - 110px); 
+    padding: 10px;
+    background-color: var(--bg-color);
+}
+
+#chat-messages {
+    flex-grow: 1; overflow-y: auto;
+    background: var(--card-bg-color);
+    border: 1px solid #333; border-radius: 8px;
+    padding: 15px; margin-bottom: 10px;
+    display: flex; flex-direction: column; gap: 10px;
+}
+
+/* Input Area */
+.ai-input-row {
+    flex-shrink: 0; display: flex; gap: 10px; align-items: center;
+    background: #222; padding: 10px;
+    border-radius: 50px; border: 1px solid #444;
+}
+
+#chat-input {
+    flex-grow: 1; background: transparent; border: none;
+    color: white; font-size: 1em; padding: 5px 10px; outline: none;
+}
+/* Light Mode Input */
+body.light-mode #chat-input { color: black; }
+body.light-mode .ai-input-row { background: #ddd; border-color: #ccc; }
+
+#send-btn {
+    background-color: var(--secondary-color); color: black;
+    border: none; border-radius: 50%; width: 40px; height: 40px;
+    font-weight: bold; cursor: pointer;
+}
+
+/* Messages */
+.ai-message, .user-message {
+    max-width: 85%; padding: 10px 14px; font-size: 0.95em; line-height: 1.4;
+}
+.ai-message { 
+    align-self: flex-start; background-color: #333; color: #eee; 
+    border-radius: 12px 12px 12px 2px; 
+}
+.user-message { 
+    align-self: flex-end; background-color: rgba(0, 191, 255, 0.15); 
+    color: #00bfff; border: 1px solid #00bfff; 
+    border-radius: 12px 12px 2px 12px; 
+}
+
+/* Light Mode Overrides */
+body.light-mode .ai-message { background-color: #e0e0e0; color: #333; }

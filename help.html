@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Tutorial - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .help-container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+        
+        .faq-item {
+            background: var(--card-bg-color); border: 1px solid #333;
+            border-radius: 8px; margin-bottom: 15px; overflow: hidden;
+        }
+        .faq-question {
+            padding: 15px; font-weight: bold; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            color: var(--text-main);
+        }
+        .faq-question:hover { background: rgba(255,255,255,0.05); }
+        .faq-answer {
+            padding: 0 15px 15px 15px; color: #aaa; display: none;
+            border-top: 1px solid #333; margin-top: 0; line-height: 1.6;
+        }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-item.open .faq-question { color: var(--secondary-color); }
+
+        /* Tutorial Section */
+        .tutorial-step {
+            margin-bottom: 25px; padding-left: 20px; border-left: 3px solid var(--secondary-color);
+        }
+        .step-title { font-size: 1.1em; color: white; font-weight: bold; margin-bottom: 5px; }
+        .step-desc { color: #ccc; font-size: 0.95em; }
+
+        .back-btn {
+            display: inline-block; margin-bottom: 20px; color: #888; text-decoration: none; font-weight: bold;
+        }
+
+        body.light-mode .faq-item { background: #fff; border-color: #ddd; }
+        body.light-mode .step-title { color: #333; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <h2>Help Center ❓</h2>
+        </header>
+
+        <main class="help-container" style="overflow-y: auto; height: calc(100vh - 60px);">
+            
+            <a href="index.html" class="back-btn">← Back to Home</a>
+
+            <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">Platform Guide</h1>
+
+            <!-- TUTORIAL -->
+            <h2 style="margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px;">🚀 How It Works</h2>
+            
+            <div class="tutorial-step">
+                <div class="step-title">1. Play & Record</div>
+                <div class="step-desc">
+                    Open the <b>Casio</b> tab to play freely. Switch to "Track Mode" to record your melody. You can also change instruments (Tone) to Flute or Synth.
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-title">2. Weekly Challenges</div>
+                <div class="step-desc">
+                    Visit the <b>Hunt</b> tab to join the Weekly Challenge. Listen to a verified track, then play it back. You get unlimited practice but only <b>one chance</b> to score points!
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-title">3. Learn with AI</div>
+                <div class="step-desc">
+                    Chat with <b>Mitra Bot</b> in the AI Tutor tab. Ask for music theory tips or request simple melodies to practice.
+                </div>
+            </div>
+
+            <div class="tutorial-step">
+                <div class="step-title">4. Share Music</div>
+                <div class="step-desc">
+                    Go to your <b>Profile</b> to see your saved tracks. Click "Share" to post them to the public Feed so others can listen and like.
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <h2 style="margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px;">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I get verified? <span>▼</span></div>
+                <div class="faq-answer">
+                    Verification is manually approved. To apply, you must have at least 5 original tracks saved 
+                    and be active in the weekly challenges. Contact support for review.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do Challenge points work? <span>▼</span></div>
+                <div class="faq-answer">
+                    Points are calculated based on your timing accuracy when playing back a Challenge song. 
+                    The leaderboard resets every week, giving everyone a fresh start!
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I download my songs? <span>▼</span></div>
+                <div class="faq-answer">
+                    Currently, songs are saved to your cloud profile. We are working on an MP3 export feature for a future update!
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+                <p style="color: #888;">Still need help?</p>
+                <a href="contact.html" style="color: var(--secondary-color); font-weight: bold; text-decoration: none;">Contact Support →</a>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="theme.js"></script>
+    <script>
+        // Simple Accordion Logic
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                item.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+/* octapad.css - Styling for the Octapad Pads within the Casio Structure */
+
+:root {
+    --pad-body: #222;
+    --pad-face: #eee;
+    --pad-border: #444;
+    --lcd-bg: #0f0f0f; 
+    --lcd-text: #4af626; 
+    --accent-color: #ff3366; 
+    --brand-blue: #00bfff; /* Used for pad hit color */
+    
+    /* CRITICAL CHANGE: Panel (15%) / Pad Area (85%) */
+    --panel-height: 15vh !important; 
+}
+
+/* Light Mode Overrides for Octapad specific colors */
+body.light-mode {
+    --pad-body: #dedede;
+    --pad-face: #ccc;
+    --pad-border: #999;
+}
+
+/* 1. Ensure Body remains fixed and override conflicting base CSS */
+body {
+    position: fixed !important; 
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    width: 100vw !important; 
+    height: 100vh !important;
+    overflow: hidden !important; 
+    transform: none !important; 
+}
+
+/* --- OVERLAY FIX: ROTATE Content 90 Degrees --- */
+
+#start-overlay {
+    /* Need to enable a context for centering the rotated element */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-overlay .overlay-content {
+    /* Apply 90-degree rotation */
+    transform: rotate(90deg);
+    
+    /* Re-center the rotated content */
+    display: flex; 
+    flex-direction: column; 
+    
+    /* Overrides to ensure spacing looks good after rotation */
+    width: auto;
+    height: auto;
+    margin: 0;
+    
+    /* Ensure text aligns centrally after rotation */
+    text-align: center;
+}
+
+#start-overlay .overlay-content h1 {
+    /* Reset margins that might conflict with rotation */
+    margin-bottom: 10px;
+}
+
+#start-overlay .overlay-content p {
+    /* Reset margins that might conflict with rotation */
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    color: #eee;
+}
+
+
+/* --- CRITICAL FIX: AGGRESSIVE LANDSCAPE ROTATION for main app --- */
+@media screen and (orientation: portrait) {
+    .casio-wrapper {
+        position: absolute !important;
+        transform: rotate(90deg); 
+        transform-origin: 0% 0%; 
+        width: 100vh; 
+        height: 100vw; 
+        top: 0;
+        left: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* 2. CENTER PANEL ADJUSTMENTS (Remove Reference Pad Area) */
+
+/* Hide the lower navigation area (reference keys) by setting its height to zero */
+.center-lower-nav {
+    height: 0 !important;
+    border: none !important;
+}
+/* Ensure the upper display occupies the full height of the center panel section */
+.center-upper-display {
+    height: 100%; 
+    border-bottom: none;
+}
+
+
+/* 3. Main Pad Area Styling (4 Columns x 2 Rows) */
+.main-keyboard-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; 
+    height: 100%; 
+    width: 100%;
+}
+
+.pads-grid {
+    width: 100%; 
+    height: 100%;
+    max-width: 800px; 
+    max-height: 400px; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+    grid-template-rows: 1fr 1fr; /* 2 Rows */
+    gap: 15px; 
+    touch-action: none;
+}
+
+.pad {
+    background: var(--pad-body); border-radius: 12px; border: 2px solid var(--pad-border);
+    cursor: pointer; display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    box-shadow: 0 6px 0 #000; transition: transform 0.05s, background 0.05s;
+    touch-action: none;
+    height: 100%;
+}
+
+/* FIX: Ensure HIT state is distinct and uses the brand color for glowing effect */
+.pad:active, .pad.hit {
+    transform: translateY(6px); box-shadow: 0 0 0 #000;
+    background: #333; 
+    border-color: var(--brand-blue);
+    filter: brightness(1.2); 
+}
+
+.pad-in {
+    width: 70%; height: 50%; background: var(--pad-face);
+    border-radius: 8px; pointer-events: none;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+.pad.hit .pad-in { 
+    background: var(--brand-blue); 
+    box-shadow: 0 0 20px var(--brand-blue); 
+}
+.pad span { 
+    margin-top: 8px; font-size: 0.9em; color: #777; font-weight: bold; 
+    font-family: sans-serif; text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+}

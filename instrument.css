@@ -1,0 +1,51 @@
+/* instrument.css */
+
+.instrument-hub {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    justify-content: center;
+}
+
+.inst-card {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.inst-card:active, .inst-card:hover {
+    transform: scale(1.02);
+    border-color: var(--secondary-color);
+}
+
+.inst-icon {
+    font-size: 3em;
+    margin-right: 20px;
+    width: 60px;
+    text-align: center;
+}
+
+.inst-info h3 {
+    margin: 0 0 5px 0;
+    color: var(--secondary-color);
+    font-size: 1.2em;
+}
+
+.inst-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+/* Specific Accents */
+.piano-card { border-left: 5px solid #ff3366; }
+.drum-card { border-left: 5px solid #00bfff; }

@@ -1,0 +1,157 @@
+/* hunt.css - Search, Game Entry & Color Fixes */
+
+:root {
+    --primary-color: #ff3366;
+    --secondary-color: #00bfff;
+    --card-bg-color: #2a2a2a;
+}
+
+body.light-mode {
+    --card-bg-color: #ffffff;
+}
+
+.hunt-section {
+    padding: 15px;
+    overflow-y: auto;
+    height: 100%;
+    padding-bottom: 80px;
+}
+
+/* --- Search Bar --- */
+.search-area {
+    display: flex; gap: 10px; margin-bottom: 20px;
+}
+
+#search-input {
+    flex-grow: 1;
+    padding: 12px;
+    background: var(--card-bg-color);
+    border: 1px solid #555;
+    border-radius: 25px;
+    outline: none;
+    color: white; 
+}
+
+body.light-mode #search-input {
+    color: black;
+    border-color: #ccc;
+    background: #f0f0f0;
+}
+
+#search-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-results-title {
+    color: var(--secondary-color);
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* --- Stats Header --- */
+.header-stats {
+    display: flex; justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+    padding: 10px; border-radius: 8px;
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+body.light-mode .header-stats { color: #333; background: #e0e0e0; }
+
+/* --- Game Card --- */
+.game-card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex; gap: 15px;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.1);
+}
+.game-icon { font-size: 2.5em; }
+.game-info h3 { margin: 0 0 5px 0; color: var(--primary-color); }
+.game-info p { margin: 0; font-size: 0.85em; color: #888; }
+
+/* SIMPLE RED BUTTON */
+.red-btn {
+    background-color: #ff3366; 
+    color: white; 
+    text-align: center; 
+    display: block; 
+    text-decoration: none; 
+    margin-top: 10px; 
+    font-weight: bold; 
+    padding: 10px; 
+    border-radius: 6px;
+}
+
+/* --- Leaderboard --- */
+.leaderboard-container {
+    background: var(--card-bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333;
+    margin-top: 10px;
+}
+.leaderboard-table { width: 100%; border-collapse: collapse; }
+.leaderboard-table th {
+    text-align: left; padding: 12px;
+    background: rgba(0, 191, 255, 0.1);
+    color: var(--secondary-color);
+    font-size: 0.8em; text-transform: uppercase;
+}
+.leaderboard-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(100,100,100,0.1);
+    font-size: 0.9em;
+}
+.leaderboard-table tr:last-child td { border-bottom: none; }
+
+/* --- Search Results & Audio Player --- */
+.search-result-post {
+    background: var(--card-bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Progress Bar Styles */
+.progress-bg {
+    width: 100%;
+    height: 4px;
+    background: rgba(100,100,100,0.3);
+    border-radius: 2px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--secondary-color);
+    transition: width 0.1s linear;
+}
+
+.result-actions {
+    display: flex; gap: 10px; margin-top: 10px;
+}
+.btn-action {
+    border: none; padding: 6px 12px; border-radius: 4px; 
+    font-weight: bold; cursor: pointer; font-size: 0.8em;
+    display: flex; align-items: center; gap: 5px;
+}
+.btn-play { background: #00bfff; color: white; min-width: 80px; justify-content: center; }
+.btn-play.playing { background: #ff3366; } /* Stop Color */
+
+.btn-like { background: transparent; border: 1px solid #555; color: #888; }
+.btn-like.active { color: #ff3366; border-color: #ff3366; }
+.btn-save { background: transparent; border: 1px solid #555; color: #888; }

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 
+    <title>Chat Video Generator</title>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to right, blue, red);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #262626;
+            overflow: hidden;
+        }
+        #generator {
+            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        #generator textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        #generator button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #generator button:hover {
+            background: #007bb5;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+        }
+        #character-profiles {
+            padding: 10px;
+            background: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            display: none;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 50vh;
+        }
+        .profile-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .profile-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        .profile-item input[type="file"] {
+            margin-left: 10px;
+        }
+        .profile-item .crop-preview {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-left: 10px;
+            background: #ddd;
+        }
+        .profile-item .crop-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #controls {
+            padding: 10px;
+            text-align: center;
+            background: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            display: none;
+            flex-shrink: 0;
+        }
+        #chat-container {
+            display: none;
+            width: 375px;
+            height: 667px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            flex-direction: column;
+            z-index: 100;
+        }
+        #chat-header {
+            padding: 10px;
+            background: #fff;
+            border-bottom: 1px solid #dbdbdb;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        #chat-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .typing-indicator {
+            margin: 0;
+            padding: 8px 12px;
+            border-radius: 18px;
+            max-width: 60%;
+            font-size: 14px;
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            color: #262626;
+            margin-left: 10px;
+            align-self: flex-start;
+            text-align: center;
+        }
+        .typing-dots {
+            display: inline-block;
+        }
+        .typing-dots span {
+            animation: blink 1.4s infinite both;
+            display: inline-block;
+        }
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            20% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .message {
+            margin: 0;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 70%;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        .message-content {
+            flex: 1;
+            word-break: break-word;
+        }
+        .message img.profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .received {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            color: #262626;
+            margin-left: 0;
+            align-self: flex-start;
+            flex-direction: row;
+        }
+        .received img.profile-pic {
+            margin-right: 10px;
+        }
+        .sent {
+            background: #0095f6;
+            color: #fff;
+            margin-right: 0;
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .sent img.profile-pic {
+            margin-left: 10px;
+        }
+        .center {
+            background: #fff;
+            color: #ed4956;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto 15px;
+            border: none;
+            align-self: center;
+            flex-direction: row;
+        }
+        .center img.profile-pic {
+            display: none;
+        }
+        #video-generation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+        #video-preview {
+            max-width: 90%;
+            max-height: 80%;
+            margin-bottom: 20px;
+        }
+        #download-btn {
+            padding: 10px 20px;
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #status {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        #recording-indicator {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff0000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <div id="generator">
+        <h2>Generate Chat Script</h2>
+        <textarea id="script-input" placeholder="Enter details (e.g., '2 characters: Zoro and Luffy, scenario: a sake dispute, tone: humorous')"></textarea>
+        <button onclick="generateAndSwitch()">Generate and Proceed</button>
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-2620293665503385"
+     data-ad-slot="9498675243"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div id="loading">Generating...</div>
+    </div>
+    <div id="character-profiles"></div>
+    <div id="controls" style="display: none;">
+        <button id="generate-video" onclick="generateVideo()">Generate Video</button>
+    </div>
+
+    <div id="chat-container">
+        <div id="chat-header">
+            <span class="back-arrow">←</span> Anime Chat
+        </div>
+        <div id="chat-messages"></div>
+    </div>
+
+    <div id="video-generation">
+        <h2>Chat Video</h2>
+        <video id="video-preview" controls></video>
+        <button id="download-btn">Download Video</button>
+        <div id="status">Ready to generate video</div>
+    </div>
+
+    <div id="recording-indicator">Recording...</div>
+
+    <audio id="ding-sound" src="https://www.soundjay.com/buttons/beep-01a.mp3"></audio>
+
+    <script>
+        const API_KEY = "AIzaSyAQjb03-opPHCjGQFt8KG-Oz3sKWtmTfIg";
+        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+        let messages = [];
+        let characterImages = {};
+        let mediaRecorder;
+        let recordedChunks = [];
+        let stream;
+        let canvas;
+        let ctx;
+        let scrollAnimationFrame;
+        let currentScrollPosition = 0;
+        let targetScrollPosition = 0;
+        let scrollStartTime = 0;
+        const scrollDuration = 500; // milliseconds
+
+        async function generateAndSwitch() {
+            const input = document.getElementById('script-input').value.trim();
+            const loading = document.getElementById('loading');
+            const profilesDiv = document.getElementById('character-profiles');
+
+            if (!input) {
+                alert('Please enter some details!');
+                return;
+            }
+
+            loading.style.display = 'block';
+
+            const payload = {
+                contents: [{
+                    parts: [{
+                        text: `You are a creative AI assistant designed to generate a chat script for an Instagram-style interface based solely on my instructions. The output must be a text-based dialogue formatted exactly as '[Character Name]: [Message] [Ding]' for each line, compatible with a chat system that uses a 2-second delay between messages triggered by [Ding]. Follow these rules strictly:
+
+- Generate the script based entirely on the details I provide in my query, including the number of characters (e.g., 2, 3, or more), their names, the scenario, and the tone (e.g., humorous, serious, chaotic).
+- Reflect the personalities and typical behaviors of the characters I specify.
+- Include the exact number of characters and messages I request, or a reasonable amount (10-15 lines) if unspecified.
+- Only include interactive elements (e.g., 'Pause & vote: [Question] 😂 [Ding]' or 'SUBSCRIBE! Next: [Teaser]! 😄 [Ding]') if I explicitly ask for them, and format them as regular lines within the '[Character Name]: [Message] [Ding]' structure.
+- Do not add extra characters, scenarios, or elements beyond what I specify.
+- Avoid HTML tags, bold text (**), numbered lists (1️⃣, 2️⃣), or any formatting beyond '[Character Name]: [Message] [Ding]'. Emojis should be part of the [Message] text only if I include them.
+
+Respond only with the script based on my query. Do not include explanations, notes, or additional text.
+
+${input}`
+                    }]
+                }]
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-goog-api-key': API_KEY
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+
+                const data = await response.json();
+                const script = data.candidates[0].content.parts[0].text;
+                messages = script.split('[Ding]').map(msg => msg.trim()).filter(msg => msg);
+
+                // Extract unique characters and set up profiles
+                const characters = [...new Set(messages.map(msg => msg.split(':')[0].trim()))].filter(char => char);
+                profilesDiv.innerHTML = '<h3>Character Profiles</h3>';
+                characters.forEach(char => {
+                    const div = document.createElement('div');
+                    div.className = 'profile-item';
+                    div.innerHTML = `<span>${char}</span><input type="file" accept="image/*" onchange="handleImageUpload(event, '${char}')"><div class="crop-preview"></div>`;
+                    profilesDiv.appendChild(div);
+                });
+
+                document.getElementById('generator').style.display = 'none';
+                document.getElementById('character-profiles').style.display = 'block';
+                document.getElementById('controls').style.display = 'block';
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function handleImageUpload(event, character) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 50;
+                        canvas.height = 50;
+                        ctx.drawImage(img, 0, 0, 50, 50);
+                        characterImages[character] = canvas.toDataURL();
+                        const preview = event.target.parentElement.querySelector('.crop-preview');
+                        preview.innerHTML = `<img src="${characterImages[character]}">`;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function generateVideo() {
+            if (Object.keys(characterImages).length !== [...new Set(messages.map(msg => msg.split(':')[0].trim()))].filter(char => char).length) {
+                alert('Please upload profile pictures for all characters!');
+                return;
+            }
+
+            document.getElementById('character-profiles').style.display = 'none';
+            document.getElementById('controls').style.display = 'none';
+            document.getElementById('video-generation').style.display = 'flex';
+            document.getElementById('status').textContent = "Preparing video recording...";
+
+            // Show the chat container
+            document.getElementById('chat-container').style.display = 'flex';
+
+            try {
+                // Create canvas for recording
+                canvas = document.createElement('canvas');
+                canvas.width = document.getElementById('chat-container').offsetWidth;
+                canvas.height = document.getElementById('chat-container').offsetHeight;
+                ctx = canvas.getContext('2d');
+
+                // Start recording
+                await startRecording();
+                
+                // Simulate the chat conversation
+                await simulateChat();
+                
+                // Stop recording after chat completes
+                setTimeout(() => {
+                    stopRecording();
+                    document.getElementById('chat-container').style.display = 'none';
+                }, 1000);
+            } catch (error) {
+                document.getElementById('status').textContent = "Error: " + error.message;
+                console.error(error);
+            }
+        }
+
+        async function startRecording() {
+            try {
+                recordedChunks = [];
+                
+                // Create stream from canvas
+                stream = canvas.captureStream(30); // 30 FPS
+                
+                // Setup media recorder
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'video/webm;codecs=vp9'
+                });
+
+                mediaRecorder.ondataavailable = function(e) {
+                    if (e.data.size > 0) {
+                        recordedChunks.push(e.data);
+                    }
+                };
+
+                mediaRecorder.onstop = function() {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const videoUrl = URL.createObjectURL(blob);
+                    const videoPreview = document.getElementById('video-preview');
+                    videoPreview.src = videoUrl;
+                    
+                    document.getElementById('download-btn').onclick = function() {
+                        const a = document.createElement('a');
+                        a.href = videoUrl;
+                        a.download = 'chat-video.mp4';
+                        a.click();
+                    };
+                    
+                    document.getElementById('status').textContent = "Video ready! Click Download to save.";
+                };
+
+                // Start recording
+                mediaRecorder.start(100); // Collect data every 100ms
+                document.getElementById('recording-indicator').style.display = 'block';
+                
+                // Start capturing frames
+                requestAnimationFrame(captureFrame);
+                
+            } catch (error) {
+                console.error('Error starting recording:', error);
+                document.getElementById('status').textContent = "Recording error: " + error.message;
+                throw error;
+            }
+        }
+
+        function captureFrame() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw chat container background
+                ctx.fillStyle = '#fafafa';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw chat header
+                const header = document.getElementById('chat-header');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, header.offsetHeight);
+                ctx.fillStyle = '#262626';
+                ctx.font = '600 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText('Anime Chat', 50, 25);
+                
+                // Draw chat messages with current scroll position
+                const messagesContainer = document.getElementById('chat-messages');
+                const messages = messagesContainer.children;
+                
+                // Calculate visible area based on scroll
+                const visibleHeight = canvas.height - header.offsetHeight;
+                const totalContentHeight = Array.from(messages).reduce((acc, msg) => acc + msg.offsetHeight + 15, 0);
+                const maxScroll = Math.max(0, totalContentHeight - visibleHeight);
+                const scrollY = Math.min(currentScrollPosition, maxScroll);
+                
+                let yPos = header.offsetHeight + 10 - scrollY;
+                
+                for (let i = 0; i < messages.length; i++) {
+                    const message = messages[i];
+                    const style = window.getComputedStyle(message);
+                    
+                    // Skip typing indicators (they're handled in simulateChat)
+                    if (message.classList.contains('typing-indicator')) continue;
+                    
+                    // Only draw messages that are visible in the current viewport
+                    if (yPos + message.offsetHeight > header.offsetHeight && yPos < canvas.height) {
+                        ctx.save();
+                        
+                        if (message.classList.contains('received')) {
+                            drawReceivedMessage(message, 10, yPos);
+                        } else if (message.classList.contains('sent')) {
+                            drawSentMessage(message, canvas.width - 10, yPos);
+                        } else if (message.classList.contains('center')) {
+                            drawCenterMessage(message, canvas.width / 2, yPos);
+                        }
+                        
+                        ctx.restore();
+                    }
+                    
+                    yPos += message.offsetHeight + 15;
+                    
+                    // Skip drawing messages that are below the visible area
+                    if (yPos > canvas.height) {
+                        break;
+                    }
+                }
+                
+                requestAnimationFrame(captureFrame);
+            }
+        }
+
+        function animateScroll(timestamp) {
+            if (!scrollStartTime) scrollStartTime = timestamp;
+            const elapsed = timestamp - scrollStartTime;
+            const progress = Math.min(elapsed / scrollDuration, 1);
+            
+            // Ease in/out function
+            const easeProgress = progress < 0.5 
+                ? 2 * progress * progress 
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+            currentScrollPosition = currentScrollPosition + (targetScrollPosition - currentScrollPosition) * easeProgress;
+            
+            if (progress < 1) {
+                scrollAnimationFrame = requestAnimationFrame(animateScroll);
+            } else {
+                currentScrollPosition = targetScrollPosition;
+                scrollStartTime = 0;
+            }
+        }
+
+        function smoothScrollTo(target) {
+            targetScrollPosition = target;
+            scrollStartTime = 0;
+            cancelAnimationFrame(scrollAnimationFrame);
+            scrollAnimationFrame = requestAnimationFrame(animateScroll);
+        }
+
+        function drawReceivedMessage(message, x, y) {
+            // Draw profile picture if exists
+            const profilePic = message.querySelector('img.profile-pic');
+            if (profilePic) {
+                const img = new Image();
+                img.src = profilePic.src;
+                ctx.drawImage(img, x, y, 30, 30);
+                x += 40;
+            }
+            
+            // Draw message bubble
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = '#dbdbdb';
+            ctx.lineWidth = 1;
+            
+            const bubbleWidth = Math.min(message.offsetWidth, canvas.width - x - 20);
+            const bubbleHeight = message.offsetHeight;
+            
+            roundRect(ctx, x, y, bubbleWidth, bubbleHeight, 18, true, true);
+            
+            // Draw text
+            ctx.fillStyle = '#262626';
+            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.textBaseline = 'top';
+            
+            const text = message.textContent.trim();
+            wrapText(ctx, text, x + 15, y + 10, bubbleWidth - 30, 20);
+        }
+
+        function drawSentMessage(message, x, y) {
+            // Draw profile picture if exists
+            const profilePic = message.querySelector('img.profile-pic');
+            if (profilePic) {
+                const img = new Image();
+                img.src = profilePic.src;
+                ctx.drawImage(img, x - 30, y, 30, 30);
+                x -= 40;
+            }
+            
+            // Draw message bubble
+            ctx.fillStyle = '#0095f6';
+            
+            const bubbleWidth = Math.min(message.offsetWidth, x - 20);
+            const bubbleHeight = message.offsetHeight;
+            
+            roundRect(ctx, x - bubbleWidth, y, bubbleWidth, bubbleHeight, 18, true);
+            
+            // Draw text
+            ctx.fillStyle = '#fff';
+            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.textBaseline = 'top';
+            
+            const text = message.textContent.trim();
+            wrapText(ctx, text, x - bubbleWidth + 15, y + 10, bubbleWidth - 30, 20);
+        }
+
+        function drawCenterMessage(message, x, y) {
+            // Draw message text
+            ctx.fillStyle = '#ed4956';
+            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.textBaseline = 'top';
+            ctx.textAlign = 'center';
+            
+            const text = message.textContent.trim();
+            wrapText(ctx, text, x, y + 10, canvas.width - 40, 20, true);
+            
+            ctx.textAlign = 'left';
+        }
+
+        function wrapText(context, text, x, y, maxWidth, lineHeight, center = false) {
+            const words = text.split(' ');
+            let line = '';
+            
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = context.measureText(testLine);
+                const testWidth = metrics.width;
+                
+                if (testWidth > maxWidth && n > 0) {
+                    if (center) {
+                        const lineWidth = context.measureText(line).width;
+                        context.fillText(line, x - lineWidth/2, y);
+                    } else {
+                        context.fillText(line, x, y);
+                    }
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            
+            if (center) {
+                const lineWidth = context.measureText(line).width;
+                context.fillText(line, x - lineWidth/2, y);
+            } else {
+                context.fillText(line, x, y);
+            }
+        }
+
+        function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            if (fill) ctx.fill();
+            if (stroke) ctx.stroke();
+        }
+
+        async function simulateChat() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            document.getElementById('status').textContent = "Generating chat video...";
+
+            for (let i = 0; i < messages.length; i++) {
+                const message = messages[i].trim();
+                const [character, text] = message.split(':');
+                
+                // Show typing indicator for 1 second
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.innerHTML = '<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>';
+                chatMessages.appendChild(typingDiv);
+                
+                // Scroll to show typing indicator
+                const targetScroll = chatMessages.scrollHeight - chatMessages.clientHeight;
+                smoothScrollTo(targetScroll);
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Remove typing indicator
+                chatMessages.removeChild(typingDiv);
+                
+                // Create message
+                const div = document.createElement('div');
+                div.className = 'message';
+
+                if (character === 'Zoro' || character === 'Tanjiro' || character === 'Nezuko') {
+                    div.className += ' received';
+                } else if (character === 'Luffy' || character === 'Usopp' || character === 'Sanji') {
+                    div.className += ' sent';
+                } else if (message.startsWith('Pause &') || message.startsWith('Should') || message.startsWith('SUBSCRIBE')) {
+                    div.className += ' center';
+                    div.textContent = text ? text.trim() : message;
+                } else {
+                    div.className += ' received';
+                }
+
+                if (!message.startsWith('Pause &') && !message.startsWith('Should') && !message.startsWith('SUBSCRIBE')) {
+                    const imgElement = document.createElement('img');
+                    imgElement.className = 'profile-pic';
+                    imgElement.src = characterImages[character] || '';
+                    div.appendChild(imgElement);
+                    
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'message-content';
+                    contentDiv.textContent = text ? text.trim() : message;
+                    div.appendChild(contentDiv);
+                }
+
+                chatMessages.appendChild(div);
+                
+                // Smooth scroll to show new message
+                const newTargetScroll = chatMessages.scrollHeight - chatMessages.clientHeight;
+                smoothScrollTo(newTargetScroll);
+                
+                // Play ding sound
+                const ding = document.getElementById('ding-sound');
+                ding.play();
+
+                // Show message for 2 seconds
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Update status
+                document.getElementById('status').textContent = `Generating... (${i+1}/${messages.length} messages)`;
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                document.getElementById('recording-indicator').style.display = 'none';
+                
+                // Stop all tracks
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                
+                // Cancel any pending scroll animation
+                cancelAnimationFrame(scrollAnimationFrame);
+                
+                document.getElementById('status').textContent = "Finalizing video...";
+            }
+        }
+    </script>
+</body>
+</html>

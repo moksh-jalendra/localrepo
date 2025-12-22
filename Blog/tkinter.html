@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tkinter GUI: The Complete Widget and Command Reference</title>
+    <style>
+        /* --- Color Palette (Cream & Sky Blue) --- */
+        :root {
+            --cream-light: #f5f5dc;    /* Main Background */
+            --sky-blue: #87ceeb;       /* Accent Color */
+            --navy-dark: #2c3e50;      /* Dark Text/Headings */
+            --grey-text: #4a4a4a;      /* Body Text */
+            --code-bg-light: #e0f2ff;  /* Light Blue for Code Blocks */
+            --border-color: #b3d9ff;   /* Muted Blue Border */
+        }
+
+        /* --- Global Styles --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream-light);
+            color: var(--grey-text);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3 { color: var(--navy-dark); border-bottom: 2px solid var(--sky-blue); padding-bottom: 5px; margin-top: 40px; }
+        h1 { font-size: 2.8em; text-align: center; color: var(--sky-blue); border-bottom: 4px solid var(--navy-dark); padding-bottom: 10px; }
+        h2 { font-size: 1.8em; color: var(--navy-dark); }
+        h3 { font-size: 1.3em; color: var(--navy-dark); border-bottom: none; }
+
+        /* --- Navigation --- */
+        .toc { 
+            background-color: #ffffff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .toc a { display: block; margin: 8px 0; text-decoration: none; color: var(--sky-blue); font-weight: 600; transition: color 0.3s; }
+        .toc a:hover { color: var(--navy-dark); text-decoration: underline; }
+
+        /* --- Function Blocks --- */
+        .function-block {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            background-color: #ffffff; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .method-list { margin-top: 10px; padding-left: 20px; }
+
+        /* --- Code & Syntax --- */
+        .syntax {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg-light);
+            color: var(--navy-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: bold;
+            border: 1px solid var(--sky-blue);
+        }
+        .example-code {
+            background-color: var(--code-bg-light);
+            color: var(--navy-dark);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 5px solid var(--sky-blue);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        .concept { color: #2980b9; font-weight: bold; } 
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            text-align: center;
+            color: #777;
+        }
+        .widget-name { color: var(--sky-blue); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🖼️ Tkinter GUI: The Complete Widget and Command Reference</h1>
+        <p style="text-align: center; color: var(--grey-text);">Building native desktop applications using Python's standard graphical interface library.</p>
+    </header>
+
+    <div class="toc">
+        <h2>🧭 Command Categories</h2>
+        <a href="#core-setup">🧱 Core Setup & Main Window</a>
+        <a href="#basic-widgets">📋 Basic Input & Display Widgets</a>
+        <a href="#layout-managers">📐 Layout Managers (The 3 Ways to Organize)</a>
+        <a href="#variable-widgets">↔️ Variable-Bound Widgets</a>
+        <a href="#advanced-widgets">⚙️ Advanced Widgets</a>
+    </div>
+
+    <hr>
+
+    <section id="core-setup">
+        <h2>🧱 Core Setup & Main Window</h2>
+        <p>The essential steps for creating the main application window and starting the event loop.</p>
+
+        <div class="function-block">
+            <h3>The Core Loop: <span class="syntax">import tkinter as tk</span>, <span class="syntax">tk.Tk()</span>, <span class="syntax">root.mainloop()</span></h3>
+            <p><span class="concept">Description:</span> Every Tkinter app needs: 1) the **import**; 2) the **root window** (`tk.Tk()`); 3) the **event loop** (`mainloop()`), which keeps the window open and responsive to user interaction.</p>
+            <pre class="example-code"><code>import tkinter as tk
+
+# 1. Create the main window
+root = tk.Tk()
+root.title("My First Tkinter App")
+root.geometry("400x300") # Width x Height
+
+# 2. Start the event loop (must be the last line!)
+root.mainloop()</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Secondary Window: <span class="syntax">tk.Toplevel(master)</span></h3>
+            <p><span class="concept">Description:</span> Creates a new, independent top-level window (a pop-up or dialog box) separate from the main root window.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Event Binding: <span class="syntax">widget.bind(event, handler)</span></h3>
+            <p><span class="concept">Description:</span> Attaches a function (`handler`) to a specific event (like a mouse click or key press) on a widget or the root window.</p>
+            <pre class="example-code"><code>def on_click(event):
+    print("Window clicked!")
+
+root.bind('<Button-1>', on_click) # Binds left-mouse click</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="basic-widgets">
+        <h2>📋 Basic Input & Display Widgets</h2>
+        <p>The fundamental building blocks for showing text, receiving input, and triggering actions.</p>
+
+        <div class="function-block">
+            <h3>Display Text: <span class="widget-name">tk.Label</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Label(master, text="...")</span></p>
+            <p><span class="concept">Purpose:</span> Used to display static text or images. Often used to label other input fields.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Action Trigger: <span class="widget-name">tk.Button</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Button(master, text="...", command=function)</span></p>
+            <p><span class="concept">Purpose:</span> Creates a clickable button. The `command` option specifies the Python function to run when the button is pressed.</p>
+            <pre class="example-code"><code>def handle_click():
+    print("Button pressed!")
+
+btn = tk.Button(root, text="Click Me", command=handle_click)
+btn.pack()</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Single-Line Input: <span class="widget-name">tk.Entry</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Entry(master, width=...)</span></p>
+            <p><span class="concept">Purpose:</span> Provides a text field for the user to type in a single line of text (e.g., username, password, number).</p>
+            <p><strong>Method:</strong> Use <span class="syntax">entry.get()</span> to retrieve the text entered by the user.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Multi-Line Input: <span class="widget-name">tk.Text</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Text(master, height=...)</span></p>
+            <p><span class="concept">Purpose:</span> Used for large, multi-line text areas, like a message body or code editor. Offers advanced text formatting capabilities.</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="layout-managers">
+        <h2>📐 Layout Managers (The 3 Ways to Organize)</h2>
+        <p>You must use one of these methods to place a widget inside its master window or frame. They cannot be mixed within the same master window.</p>
+
+        <div class="function-block">
+            <h3>1. Pack Manager: <span class="syntax">widget.pack()</span></h3>
+            <p><span class="concept">Concept:</span> Simplest layout. Widgets are organized in blocks before they are placed in the parent widget. Options like `side='left'`, `fill='x'`, or `expand=True` control placement.</p>
+            <pre class="example-code"><code>btn1.pack(side='left') # Place button on the left
+btn2.pack(fill='x')    # Stretch button horizontally</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>2. Grid Manager: <span class="syntax">widget.grid(row=R, column=C)</span></h3>
+            <p><span class="concept">Concept:</span> The most common layout. Organizes widgets in a table-like structure of rows and columns. Uses `rowspan` and `columnspan` for merging cells.</p>
+            <pre class="example-code"><code>label.grid(row=0, column=0)
+entry.grid(row=0, column=1, padx=5, pady=5) # Add padding</code></pre>
+        </div>
+        
+        <div class="function-block">
+            <h3>3. Place Manager: <span class="syntax">widget.place(x=X, y=Y)</span></h3>
+            <p><span class="concept">Concept:</span> Absolute positioning. Places a widget at specific coordinates (pixels) relative to the top-left corner of the parent. **Generally discouraged** as it doesn't handle resizing well.</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="variable-widgets">
+        <h2>↔️ Variable-Bound Widgets (State Control)</h2>
+        <p>Widgets that rely on a special Tkinter Variable class to store their state (value, text, etc.) outside the widget itself.</p>
+
+        <div class="function-block">
+            <h3>Tkinter Variables: <span class="syntax">tk.StringVar()</span>, <span class="syntax">tk.IntVar()</span>, <span class="syntax">tk.DoubleVar()</span>, <span class="syntax">tk.BooleanVar()</span></h3>
+            <p><span class="concept">Description:</span> These objects act as containers for data. Methods include <span class="syntax">.get()</span> to read the value and <span class="syntax">.set(value)</span> to change the value programmatically.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Boolean Input: <span class="widget-name">tk.Checkbutton</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Checkbutton(..., variable=tk.IntVar())</span></p>
+            <p><span class="concept">Purpose:</span> Creates a checkbox. Its state (checked/unchecked) is bound to a `tk.IntVar` (1 for checked, 0 for unchecked).</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Exclusive Choice: <span class="widget-name">tk.Radiobutton</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Radiobutton(..., variable=V, value=N)</span></p>
+            <p><span class="concept">Purpose:</span> Creates a set of buttons where only one can be selected at a time. All buttons in the group must share the same `variable`.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Slider: <span class="widget-name">tk.Scale</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Scale(..., from_=0, to=100)</span></p>
+            <p><span class="concept">Purpose:</span> Creates a slider widget (horizontal or vertical) for selecting numeric values within a defined range.</p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="advanced-widgets">
+        <h2>⚙️ Advanced Widgets</h2>
+        <p>Widgets used for structuring the layout and handling complex data display.</p>
+
+        <div class="function-block">
+            <h3>Container: <span class="widget-name">tk.Frame</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Frame(master)</span></p>
+            <p><span class="concept">Purpose:</span> An invisible rectangular container. Used to group related widgets together and apply a separate layout manager (Grid, Pack) to that group, improving organization.</p>
+        </div>
+
+        <div class="function-block">
+            <h3>Drawing Surface: <span class="widget-name">tk.Canvas</span></h3>
+            <p><span class="concept">Class:</span> <span class="syntax">tk.Canvas(master)</span></p>
+            <p><span class="concept">Purpose:</span> Provides a drawing surface for complex graphics, lines, arcs, images, and other custom shapes. Often used in conjunction with Turtle graphics.</p>
+            <p><strong>Methods:</strong> <span class="syntax">canvas.create_line()</span>, <span class="syntax">canvas.create_oval()</span>, <span class="syntax">canvas.create_text()</span>.</p>
+        </div>
+        
+        <div class="function-block">
+            <h3>Top Menu Bar: <span class="widget-name">tk.Menu</span></h3>
+            <p><span class="concept">Purpose:</span> Used to create the standard top-level menu bar (File, Edit, Help, etc.) and cascading sub-menus.</p>
+            <pre class="example-code"><code># Create the main menu bar
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+# Create a sub-menu
+file_menu = tk.Menu(menu_bar, tearoff=0)
+file_menu.add_command(label="Exit", command=root.quit)
+
+# Add the sub-menu to the bar
+menu_bar.add_cascade(label="File", menu=file_menu)</code></pre>
+        </div>
+    </section>
+
+    <footer>
+        <p style="color: var(--grey-text);">Keep coding! Tkinter is the foundation for Python desktop applications.</p>
+    </footer>
+
+</body>
+</html>

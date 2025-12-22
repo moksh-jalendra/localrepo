@@ -1,0 +1,54 @@
+/* octapad-upper.css - Digital Screen Only */
+
+.panel-section.center {
+    width: 40%;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.center-upper-display {
+    width: 100%; height: 100%; /* Occupies full center panel height */
+    background: #0f0f0f;
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+/* LCD Screen */
+.lcd-screen {
+    width: 95%;
+    height: 85%;
+    background: #152215;
+    border: 3px inset #444;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+.lcd-indicators { display: flex; gap: 10px; font-size: 0.55em; margin-bottom: 2px; }
+.indicator { color: rgba(74, 246, 38, 0.3); }
+.indicator.active { color: #4af626; font-weight: bold; text-shadow: 0 0 5px #4af626; }
+
+.lcd-content {
+    flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+#lcd-text {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2em; font-weight: bold;
+    color: #4af626;
+    text-shadow: 0 0 4px rgba(74, 246, 38, 0.6);
+    white-space: nowrap;
+}
+
+#lcd-status-icon {
+    position: absolute; bottom: 5px; right: 5px;
+    width: 8px; height: 8px; border-radius: 50%; background: #222;
+}
+#lcd-status-icon.recording { background: #ff3366; box-shadow: 0 0 8px #ff3366; animation: blink 1s infinite; }

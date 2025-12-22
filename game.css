@@ -1,0 +1,19 @@
+body { background: #111; overflow: hidden; margin: 0; }
+#game-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; justify-content: center; align-items: center; text-align: center; }
+.game-title { font-size: 2.5em; color: #ff3366; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+.glow-btn { padding: 20px 50px; font-size: 1.5em; font-weight: bold; background: #00bfff; color: black; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 191, 255, 0.5); animation: pulse 1.5s infinite; transition: transform 0.2s; }
+.glow-btn:hover { transform: scale(1.05); }
+.exit-link { display: block; margin-top: 20px; color: #888; text-decoration: none; }
+@keyframes pulse { 0% { box-shadow: 0 0 20px rgba(0,191,255,0.5); } 50% { box-shadow: 0 0 40px rgba(0,191,255,0.8); } 100% { box-shadow: 0 0 20px rgba(0,191,255,0.5); } }
+.casio-wrapper { width: 100%; height: 100%; display: flex; flex-direction: column; opacity: 0; transition: opacity 0.5s; }
+.top-panel { flex-shrink: 0; height: 20vh; min-height: 140px; }
+.main-keyboard-area { flex-grow: 1; height: auto; }
+.controls-container.grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 100%; height: 100%; align-content: center; }
+.control-btn { background: #222; border: 1px solid #444; color: #ccc; font-size: 0.7em; font-weight: bold; cursor: pointer; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.control-btn:active { background: #444; color: white; }
+.game-status-text { font-size: 1.5em; font-weight: bold; text-transform: uppercase; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); transition: color 0.2s; }
+.game-status-text.listen { color: #00bfff; }
+.game-status-text.play { color: #ff3366; animation: blink 0.5s infinite; }
+.key.game-target { background: #00bfff !important; box-shadow: 0 0 15px #00bfff; }
+.key.game-hit { background: #00e676 !important; }
+.ref-key.game-target { background: #00bfff !important; height: 100% !important; z-index: 10; }

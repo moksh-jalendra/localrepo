@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Pianomitra - Challenge</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="hunt.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <h1>Challenge 🎮</h1>
+            <a href="ai.html" class="control-btn" style="background: var(--secondary-color); color: #000; margin-left: auto; text-decoration: none; padding: 5px 15px; font-size: 0.8em; border-radius: 20px;">
+                🤖 AI Tutor
+            </a>
+        </header>
+
+        <main class="hunt-section">
+            <div class="search-area">
+                <input type="text" id="search-input" placeholder="Search Track Name..." />
+                <button id="search-btn">🔍</button>
+            </div>
+
+            <div id="results-wrapper" style="display:none;">
+                <h3 class="search-results-title">Search Results</h3>
+                <div id="results-container"></div>
+                <button class="control-btn" onclick="location.reload()" style="background:#333; margin-top:10px;">Back</button>
+            </div>
+
+            <div id="game-center">
+                
+                <!-- NEW BUTTON: CREATE CUSTOM TONE -->
+                <a href="soundlab.html" class="control-btn red-btn" style="background: #ff9900; margin-bottom: 20px;">
+                    🎛️ Create Custom Tone
+                </a>
+                
+                <div class="header-stats">
+                    <span>My Rank: <b id="my-rank">-</b></span>
+                    <span>Score: <b id="my-points" style="color:var(--secondary-color)">0</b></span>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-info">
+                        <h3>Weekly Challenge</h3>
+                        <p>Test your rhythm skills against the community.</p>
+                        <a href="game.html" class="control-btn red-btn">PARTICIPATE</a>
+                    </div>
+                    <div class="game-icon">🏆</div>
+                </div>
+
+                <h3 class="search-results-title" style="margin-top: 30px;">Leaderboard</h3>
+                <div class="leaderboard-container">
+                    <table class="leaderboard-table">
+                        <thead><tr><th>#</th><th>Player</th><th>Pts</th></tr></thead>
+                        <tbody id="leaderboard-body"><tr><td colspan="3">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Feed</span></a>
+            <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+            <a href="instrument.html" class="nav-item casio-link"><span class="nav-icon">🎸</span><span class="nav-label">Instrument</span></a>
+            <a href="hunt.html" class="nav-item active"><span class="nav-icon">🔎</span><span class="nav-label">Hunt</span></a>
+        </nav>
+    </div>
+    
+    <script src="theme.js"></script>
+    <script src="hunt.js"></script>
+</body>
+</html>

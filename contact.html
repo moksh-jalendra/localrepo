@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .contact-container {
+            max-width: 600px; margin: 0 auto; padding: 40px 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .contact-card {
+            background: var(--card-bg-color); border: 1px solid #333;
+            padding: 30px; border-radius: 16px; width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        input, textarea {
+            width: 100%; background: rgba(0,0,0,0.2); border: 1px solid #555;
+            color: var(--text-color); padding: 15px; margin-bottom: 15px;
+            border-radius: 8px; font-family: inherit;
+        }
+        .send-btn {
+            background: var(--secondary-color); color: black; font-weight: bold;
+            border: none; padding: 15px; width: 100%; border-radius: 30px;
+            cursor: pointer; font-size: 1.1em;
+        }
+        /* Light Mode Support */
+        body.light-mode .contact-card { background: #fff; border-color: #ddd; }
+        body.light-mode input, body.light-mode textarea { background: #f0f0f0; border-color: #ccc; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <h2>Contact Support</h2>
+        </header>
+
+        <main class="contact-container">
+            <div class="contact-card">
+                <h1 style="color: var(--primary-color); margin-bottom: 10px;">Get in Touch</h1>
+                <p style="color: #888; margin-bottom: 30px;">Found a bug? Have a feature request? Let us know!</p>
+                
+                <form action="mailto:moksh@pianomitra.online" method="post" enctype="text/plain">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    <button type="submit" class="send-btn">Send Message</button>
+                </form>
+                
+                <div style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                    Direct Email: <a href="mailto:moksh@pianomitra.online" style="color:var(--secondary-color)">moksh@pianomitra.online</a>
+                </div>
+            </div>
+            <a href="index.html" style="margin-top: 30px; color: #888; text-decoration: none;">← Back to Home</a>
+        </main>
+    </div>
+    <script src="theme.js"></script>
+</body>
+</html>

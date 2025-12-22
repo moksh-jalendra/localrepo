@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="message.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="top-bar">
+            <button onclick="history.back()" class="back-btn">← Back</button>
+            <h2 id="chat-header-name">Chat</h2>
+        </header>
+
+        <main class="message-section">
+            <div id="chat-messages-container">
+                <div style="text-align:center; color:#666; padding-top:20px;">Loading chat...</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="msg-input" placeholder="Type a message..." autocomplete="off">
+                <button id="msg-send-btn">➤</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="theme.js"></script>
+    <script src="message.js"></script>
+</body>
+</html>

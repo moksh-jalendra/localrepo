@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Troubleshooting guide for PianoMitra. Fix audio issues, login problems, orientation locks, and performance lag on mobile devices.">
+    <title>Troubleshooting & Support - PianoMitra</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article-header { border-bottom: 1px solid #333; margin-bottom: 30px; padding-bottom: 20px; }
+        .article-header h1 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 10px; }
+        .meta-info { color: var(--secondary-color); font-weight: bold; font-size: 0.9em; text-transform: uppercase; }
+        .content-body { color: var(--text-color); font-size: 1.1em; line-height: 1.8; }
+        .content-body h2 { color: var(--text-main); margin-top: 40px; margin-bottom: 20px; font-size: 1.5em; border-left: 4px solid var(--secondary-color); padding-left: 15px; }
+        .content-body h3 { color: #ccc; margin-top: 25px; margin-bottom: 10px; font-weight: bold; }
+        .content-body p { margin-bottom: 20px; color: #ccc; }
+        .alert-box { background: rgba(255, 51, 102, 0.1); border: 1px solid var(--primary-color); padding: 15px; border-radius: 8px; color: #ff99aa; margin: 20px 0; }
+        
+        body.light-mode .content-body p { color: #333; }
+        body.light-mode .article-header { border-color: #ddd; }
+        body.light-mode .alert-box { background: rgba(230, 41, 85, 0.1); color: #c00; }
+        
+        .cta-box { background: var(--card-bg-color); border: 1px solid var(--secondary-color); padding: 30px; border-radius: 12px; margin-top: 60px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="height: auto; overflow-y: auto;">
+        
+        <header class="top-bar">
+            <h2>PianoMitra Knowledge Base 📚</h2>
+        </header>
+
+        <nav class="custom-nav" style="padding: 15px 20px; border-bottom: 1px solid rgba(100,100,100,0.2);">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none; margin-right: 15px;">Home</a>
+            <a href="blog.html" style="color: var(--secondary-color); text-decoration: none; font-weight: bold;">← Back to All Articles</a>
+        </nav>
+
+        <main class="article-container">
+            
+            <header class="article-header">
+                <span class="meta-info">Support • 5 Min Read</span>
+                <h1>Troubleshooting Guide: Fixing Common Issues</h1>
+            </header>
+
+            <div class="content-body">
+                <p>PianoMitra is a complex web application that pushes the boundaries of what browsers can do with audio. Because of this, you may occasionally encounter technical hiccups. This guide addresses the most common issues users face and provides step-by-step solutions.</p>
+
+                <h2>Audio Not Playing?</h2>
+                <p>This is the most common issue. Modern web browsers (Chrome, Safari, Edge) have a strict "Autoplay Policy." This means a website is not allowed to make sound until the user explicitly interacts with it.</p>
+                <div class="alert-box">
+                    <strong>Solution:</strong> You must click or tap anywhere on the page at least once to "unlock" the Audio Context. If you load the piano and hear silence, try clicking the "Play" button or tapping a key again.
+                </div>
+                <h3>iOS Silent Switch</h3>
+                <p>If you are on an iPhone, ensure your physical "Silent/Ring" switch is set to Ring. Browsers on iOS often respect this hardware switch and will mute all web audio if the phone is in silent mode, even if your volume is turned up.</p>
+
+                <h2>Orientation and Layout Issues</h2>
+                <p>The Casio and Octapad studios are designed to be used in Landscape mode on mobile devices. We use CSS transforms to force the screen to rotate if you hold your phone vertically.</p>
+                <h3>Content Looks Cut Off?</h3>
+                <p>If the piano keys look too small or parts of the interface are off-screen, check your browser's zoom settings. Ensure you are viewing the page at 100% zoom. On mobile, try refreshing the page while holding the phone in the correct orientation.</p>
+
+                <h2>Login and Account Problems</h2>
+                <p>PianoMitra uses Firebase Authentication. If you are stuck on the "Loading..." screen during login:</p>
+                <ul>
+                    <li><strong>Cookies:</strong> Ensure your browser allows third-party cookies. Firebase needs these to verify your session security.</li>
+                    <li><strong>Pop-up Blockers:</strong> Google Sign-In opens a pop-up window. If you have a strict ad-blocker, it might be preventing the login window from appearing. Disable your ad-blocker for pianomitra.online.</li>
+                </ul>
+
+                <h2>Storage Limits</h2>
+                <p>To keep our service free and fast, we enforce limits on how much data a user can save.</p>
+                <ul>
+                    <li><strong>Post Limit:</strong> 5 Public Posts</li>
+                    <li><strong>Track Limit:</strong> 5 Saved Recordings</li>
+                    <li><strong>Tone Limit:</strong> 5 Custom Tones</li>
+                </ul>
+                <p>If you try to save a 6th track, you will receive an alert. You must go to your <a href="profile.html" style="color:var(--secondary-color)">Profile</a> and delete an old track to make room for a new one. This ensures our database remains responsive for all users.</p>
+
+                <h2>Performance and Lag</h2>
+                <p>If the audio sounds crackly or delayed, your device might be running low on memory. Audio synthesis is CPU-intensive.</p>
+                <p><strong>Fix:</strong> Close other tabs in your browser. If you have 50 tabs open, your browser allocates less processing power to the audio engine. Closing background apps will significantly improve the smoothness of the sound.</p>
+
+                <h2>Still having trouble?</h2>
+                <p>If none of these solutions work, you can reach out to our support team directly. Please include your device model and browser version in your message.</p>
+            </div>
+
+            <div class="cta-box">
+                <h3>Contact Support</h3>
+                <p>We are here to help you get back to playing.</p>
+                <a href="contact.html" class="control-btn" style="background: var(--primary-color); color: white; display: inline-block; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 10px;">Email Support</a>
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.9em; border-top: 1px solid #333; margin-top: 40px;">
+            <p>&copy; 2025 PianoMitra. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="theme.js"></script>
+</body>
+</html>

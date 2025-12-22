@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="auth.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="top-bar">
+            <h2>PianoMitra Access</h2>
+        </header>
+
+        <main class="auth-section">
+            
+            <div id="verification-overlay" class="auth-card" style="display: none;">
+                <div style="font-size: 3em;">📧</div>
+                <h3>Verify Your Email</h3>
+                <p style="color:#ccc; margin:15px 0;">
+                    We sent a link to <b id="verify-email-display" style="color:var(--secondary-color)">...</b>
+                </p>
+                <p style="font-size:0.9em; color:#888;">
+                    Click the link in your email, then come back here.<br>
+                    We will detect it automatically!
+                </p>
+                
+                <div class="loader-spinner active" style="margin: 20px auto;"></div>
+                <p id="verification-status" style="color:var(--primary-color); font-size:0.8em;">Waiting...</p>
+
+                <button id="resend-btn" class="control-btn" style="background:#333; margin-top:20px;">Resend Link</button>
+                <button onclick="location.reload()" class="control-btn" style="background:transparent; border:1px solid #555; margin-top:10px;">Back to Login</button>
+            </div>
+
+            <div id="main-auth-card" class="auth-card">
+                
+                <button id="google-btn" class="google-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+                    Continue with Google
+                </button>
+
+                <div class="divider"><span>OR</span></div>
+
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Register</button>
+                </div>
+
+                <div id="login" class="auth-view active">
+                    <input type="email" id="login-email" placeholder="Email Address" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button id="login-btn" class="control-btn">Login</button>
+                    <p class="switch-msg" id="reset-link-btn">Forgot Password?</p>
+                </div>
+
+                <div id="signup" class="auth-view">
+                    <input type="text" id="signup-name" placeholder="Display Name" required>
+                    <input type="email" id="signup-email" placeholder="Email Address" required>
+                    <input type="password" id="signup-password" placeholder="Password (6+ chars)" required>
+                    <button id="signup-btn" class="control-btn">Create Account</button>
+                </div>
+
+                <p id="auth-status" class="auth-status-message"></p>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+             <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Feed</span></a>
+             <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+             <a href="instrument.html" class="nav-item"><span class="nav-icon">🎸</span><span class="nav-label">Instrument</span></a>
+             <a href="hunt.html" class="nav-item"><span class="nav-icon">🔎</span><span class="nav-label">Hunt</span></a>
+        </nav>
+    </div>
+
+    <script src="theme.js"></script>
+    <script src="auth.js" defer></script>
+</body>
+</html>

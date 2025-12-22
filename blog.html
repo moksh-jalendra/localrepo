@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official PianoMitra blog. A comprehensive resource on web-based music synthesis, rhythm theory, AI education, and our mission to democratize music learning.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385"
+     crossorigin="anonymous"></script>
+    <title>Blog & Insights - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        /* Blog Layout */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero Text Section */
+        .manifesto-section {
+            border-bottom: 1px solid #333;
+            padding-bottom: 50px;
+            margin-bottom: 50px;
+        }
+
+        .manifesto-title {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .manifesto-subtitle {
+            font-size: 1.5em;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .text-block {
+            color: #ccc;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .text-block strong { color: var(--secondary-color); }
+        
+        h2 { color: var(--text-main); margin-top: 40px; margin-bottom: 15px; font-size: 1.8em; }
+        h3 { color: var(--secondary-color); margin-top: 25px; margin-bottom: 10px; font-size: 1.3em; }
+
+        /* Article Grid */
+        .guides-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            border-top: 1px solid #333;
+            padding-top: 50px;
+            color: var(--text-main);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: var(--card-bg-color);
+            border: 1px solid rgba(100,100,100,0.2);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+        }
+
+        .article-tag {
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .article-heading {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .article-desc {
+            color: #888;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .read-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        .read-link:hover { border-bottom-color: var(--primary-color); }
+
+        /* Light Mode */
+        body.light-mode .text-block { color: #333; }
+        body.light-mode .article-desc { color: #555; }
+        body.light-mode .manifesto-section { border-color: #ddd; }
+        body.light-mode .guides-title { border-color: #ddd; }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="height: auto; overflow-y: auto;">
+        
+        <header class="top-bar">
+            <h2>PianoMitra Blog 📰</h2>
+        </header>
+
+        <nav class="custom-nav" style="padding: 15px 20px; border-bottom: 1px solid rgba(100,100,100,0.1);">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none;">← Back to Studio</a>
+        </nav>
+
+        <main class="blog-container">
+            
+            <article class="manifesto-section">
+                <h1 class="manifesto-title">The Future of Music Education is in the Browser</h1>
+                <p class="manifesto-subtitle">Why we built PianoMitra, how the Audio Engine works, and our vision for accessible creativity.</p>
+
+                <div class="text-block">
+                    <p>Music is often described as a universal language, yet the tools required to create it have historically been gated behind expensive hardware, complex software installation, and high subscription fees. At PianoMitra, we believe that creativity should be accessible to anyone with an internet connection. This platform represents a shift in how we think about Digital Audio Workstations (DAWs). By leveraging the modern capabilities of the <strong>Web Audio API</strong>, we have built a low-latency, high-fidelity synthesizer that lives entirely within your web browser.</p>
+                    
+                    <p>This page serves as both a manifesto of our development philosophy and a directory of resources for our users. Whether you are a student learning your first scale or a developer interested in audio synthesis, PianoMitra is built for you.</p>
+                </div>
+
+                <h2>The Technology Behind the Sound</h2>
+                <div class="text-block">
+                    <p>Many online pianos use a technique called "sampling," where pressing a key triggers a pre-recorded MP3 file of a real piano. While this sounds realistic, it is heavy on data (often 50MB+) and creates "latency" (a delay between pressing the key and hearing the sound). PianoMitra takes a different approach: <strong>Synthesis</strong>.</p>
+                    
+                    <p>When you press a key in our <a href="casio.html" style="color:var(--secondary-color)">Casio Studio</a>, the application executes a mathematical formula. It instructs your computer's processor to generate a waveform—usually a Triangle or Sawtooth wave—at a specific frequency (e.g., 440Hz for A4). This generation happens in microseconds. Because we are generating audio rather than downloading it, the entire PianoMitra application is incredibly lightweight, loading instantly even on slower 3G or 4G mobile networks.</p>
+                    
+                    <p>This approach also allows for dynamic sound shaping. In our Sound Lab, users can adjust the "Attack" (how fast the sound starts) and "Decay" (how long it fades). Modifying these parameters on a sample-based instrument would require complex processing, but with our synthesis engine, it is simply a matter of changing a variable in the code.</p>
+                </div>
+
+                <h2>The Role of AI in Learning</h2>
+                <div class="text-block">
+                    <p>Technology alone is not a teacher. A synthesizer is just a tool; to make music, one needs knowledge. This is where Artificial Intelligence bridges the gap. We integrated the <strong>Google Gemini API</strong> to create "Mitra Bot," a context-aware music tutor. Unlike a generic chatbot, Mitra Bot is engineered with specific system prompts to understand music theory concepts.</p>
+                    
+                    <p>For example, if a user asks, "How do I play a C Major chord?", the AI doesn't just describe it; it can output a JSON data structure that our audio engine can read and play. This closes the loop between theory (text) and practice (sound). We envision a future where AI acts as a personalized jamming buddy, suggesting chord progressions and analyzing rhythm in real-time.</p>
+                </div>
+
+                <h2>Community and Verification</h2>
+                <div class="text-block">
+                    <p>Music is inherently social. The "Feed" feature of PianoMitra was built to solve the isolation of digital practice. When you save a track to your profile, it exists in a private cloud database. However, sharing it to the public feed transforms it into a social object. Other users can listen to your composition, not just as a static audio file, but as a replayable data sequence. They can see the keys light up on their own screen as your song plays.</p>
+                    
+                    <p>To ensure high quality in our competitive "Hunt" mode, we implemented a manual verification system. Tracks that demonstrate exceptional musicality or technical skill are marked as "Official Challenges." This creates a meritocratic ecosystem where skill is rewarded with visibility on the global leaderboard.</p>
+                </div>
+
+                <h3>A Note on Privacy and Data</h3>
+                <div class="text-block">
+                    <p>We believe in transparency. Your musical data—your recorded tracks, custom tones, and drum kits—is stored securely using Firebase Realtime Database. We enforce strict data limits (currently 5 slots per category) to keep the service free and fast for everyone. We do not sell your musical data to third parties. Your creativity belongs to you.</p>
+                </div>
+            </article>
+
+            <h2 class="guides-title">Guides & Tutorials</h2>
+            
+            <div class="articles-grid">
+
+                <article class="article-card">
+                    <span class="article-tag">Tutorial</span>
+                    <h3 class="article-heading">Mastering the Digital Octapad</h3>
+                    <p class="article-desc">
+                        A deep dive into our rhythm engine. Learn how to map custom sounds, understand the difference between kick and snare synthesis, and record professional beats.
+                    </p>
+                    <a href="article-octapad-guide.html" class="read-link">Read Full Guide →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Tutorial</span>
+                    <h3 class="article-heading">The Piano Studio Guide</h3>
+                    <p class="article-desc">
+                        Unlock the full potential of the 24-key synthesizer. We explain waveforms, the physics-based scrolling mechanism, and how to use the sustain pedal effectively.
+                    </p>
+                    <a href="article-casio-guide.html" class="read-link">Read Full Guide →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Education</span>
+                    <h3 class="article-heading">Music Theory 101</h3>
+                    <p class="article-desc">
+                        Don't know where to start? This guide explains the basics of Western music theory, including scales, triads, and how to read the chromatic keyboard layout.
+                    </p>
+                    <a href="article-music-theory.html" class="read-link">Read Theory Lesson →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Technology</span>
+                    <h3 class="article-heading">AI in Music Education</h3>
+                    <p class="article-desc">
+                        Discover how to use Mitra Bot effectively. Learn prompt engineering tips to get the AI to generate melodies, code, and specific theory explanations.
+                    </p>
+                    <a href="article-ai-tutor.html" class="read-link">Read AI Guide →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Support</span>
+                    <h3 class="article-heading">Troubleshooting & Support</h3>
+                    <p class="article-desc">
+                        Is audio not playing? Having trouble logging in? This technical support guide covers the most common browser issues and how to fix them quickly.
+                    </p>
+                    <a href="article-troubleshooting.html" class="read-link">Get Help →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Education</span>
+                    <h3 class="article-heading">Understanding the Circle of Fifths</h3>
+                    <p class="article-desc">
+                        Take your music theory skills to the next level. We break down the Circle of Fifths and show you how to use it for key changes and chord progression writing.
+                    </p>
+                    <a href="article-circle-of-fifths.html" class="read-link">Explore Harmony →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Technology</span>
+                    <h3 class="article-heading">Beyond Oscillators: Web Audio API Effects</h3>
+                    <p class="article-desc">
+                        Learn about advanced Web Audio API nodes like the `DynamicsCompressorNode` and `BiquadFilterNode` to add professional reverb, delay, and EQ to your tones.
+                    </p>
+                    <a href="article-web-audio-effects.html" class="read-link">Dive Deeper →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Community</span>
+                    <h3 class="article-heading">Climbing the Global Leaderboard</h3>
+                    <p class="article-desc">
+                        A guide to the competitive "Hunt" mode. Discover the criteria for "Official Challenges," how tracks are verified, and the best strategies for scoring high.
+                    </p>
+                    <a href="article-leaderboard-guide.html" class="read-link">Start Competing →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Development</span>
+                    <h3 class="article-heading">Realtime Data for Music: Using Firebase</h3>
+                    <p class="article-desc">
+                        An in-depth look at how PianoMitra uses the Firebase Realtime Database to store and sync your musical data, from custom tones to recorded track sequences.
+                    </p>
+                    <a href="article-firebase-data.html" class="read-link">View Tech Stack →</a>
+                </article>
+
+                <article class="article-card">
+                    <span class="article-tag">Education</span>
+                    <h3 class="article-heading">Mastering Minor Scales & Modes</h3>
+                    <p class="article-desc">
+                        Expand your harmonic vocabulary beyond the major scale. This lesson covers the three types of minor scales and introduces you to the concept of musical modes.
+                    </p>
+                    <a href="article-minor-scales-modes.html" class="read-link">Learn New Scales →</a>
+                </article>
+                
+                <article class="article-card">
+                    <span class="article-tag">Service Info</span>
+                    <h3 class="article-heading">Explore PianoMitra's Other Services</h3>
+                    <p class="article-desc">
+                        Beyond the web studio, read about our educational workshops, licensing options for the synthesis engine, and custom development services for third parties.
+                    </p>
+                    <a href="http://blog.pianomitra.online" class="read-link" target="_blank">Read More on Our Blog →</a>
+                </article>
+
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.9em; border-top: 1px solid #333; margin-top: 40px;">
+            <p>&copy; 2025 PianoMitra. All rights reserved. | <a href="privacy.html" style="color:#888;">Privacy</a> | <a href="terms.html" style="color:#888;">Terms</a></p>
+        </footer>
+    </div>
+
+    <script src="theme.js"></script>
+</body>
+</html>

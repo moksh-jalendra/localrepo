@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tournament Mode</title>
+    
+    <link rel="stylesheet" href="casio.css">
+    <link rel="stylesheet" href="casio-left.css">
+    <link rel="stylesheet" href="casio-upper.css">
+    <link rel="stylesheet" href="casio-right.css">
+    <link rel="stylesheet" href="game.css">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+
+    <div id="game-overlay">
+        <div class="overlay-content">
+            <h1 class="game-title">Weekly Challenge</h1>
+            <p style="color:#aaa;">Play Verified Tracks • 1 Chance Per Song</p>
+            
+            <div id="game-stats" style="display:none; margin-bottom: 20px;">
+                <h2 id="final-score" style="color: #00e676; font-size: 3em;">0%</h2>
+                <p id="points-awarded" style="color: #ccc;">Accuracy</p>
+                <div style="font-size:0.8em; margin-top:10px; color:#ff3366;">Loading next challenge...</div>
+            </div>
+            
+            <button id="start-game-btn" class="glow-btn">ENTER ARENA</button>
+            <a href="hunt.html" class="exit-link">Exit</a>
+        </div>
+    </div>
+
+    <div class="casio-wrapper">
+        <div class="top-panel" id="top-panel">
+            
+            <div class="panel-section left">
+                <div class="controls-container grid-2x2">
+                    <button id="demo-btn" class="control-btn" style="color:#00bfff; border-color:#00bfff;">▶ PLAY SONG</button>
+                    <button id="round-start-btn" class="control-btn" style="background:#ff3366; color:white; border:none;">🔴 START</button>
+                    <div style="grid-column: span 2; font-size: 0.6em; color:#666; text-align:center; padding-top:5px;">
+                        Unlimited listens.<br>Start when ready.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section center">
+                <div class="center-upper-display">
+                    <div id="digital-screen" class="lcd-screen">
+                        <div class="lcd-indicators" style="justify-content: space-between; padding: 0 10px; width:100%;">
+                            <span class="indicator active" style="color:#ffeb3b">PTS: <span id="game-score-display">0</span></span>
+                            <span class="indicator active" style="color:#00e676">KEY: <span id="note-display">--</span></span>
+                        </div>
+                        <div class="lcd-content">
+                            <span id="status-display" class="game-status-text">LOADING...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-lower-nav">
+                    <div class="reference-scroller" id="ref-scroller"><div class="reference-keys" id="ref-keys"></div></div>
+                    <div class="nav-frame"></div>
+                </div>
+            </div>
+            
+            <div class="panel-section right">
+                <div class="controls-container grid-2x2">
+                    <button id="toggle-labels-btn" class="control-btn">ABC Labels</button>
+                    <button id="fullscreen-btn" class="control-btn">⛶ Full</button>
+                    <a href="hunt.html" class="control-btn exit-btn" style="grid-column: span 2; text-decoration:none; display:flex; justify-content:center;">EXIT</a>
+                </div>
+            </div>
+        </div>
+
+        <button id="panel-toggle" class="toggle-bar"><span>▲</span></button>
+
+        <div class="main-keyboard-area">
+            <div class="main-keys-scroller" id="main-scroller">
+                <div class="main-keys" id="main-keys"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="casio.js"></script> 
+    <script src="game.js"></script>
+</body>
+</html>

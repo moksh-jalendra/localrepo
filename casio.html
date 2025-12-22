@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PianoMitra Studio</title>
+    
+    <link rel="stylesheet" href="casio.css">
+    <link rel="stylesheet" href="casio-left.css">
+    <link rel="stylesheet" href="casio-upper.css">
+    <link rel="stylesheet" href="casio-right.css">
+    <link rel="stylesheet" href="casio-custom.css">
+</head>
+<body>
+
+    <div id="start-overlay">
+        <div class="overlay-content">
+            <h1>🎹 PianoMitra</h1>
+            <p>Rotate to Landscape</p>
+            <button id="start-btn">ENTER STUDIO</button>
+        </div>
+    </div>
+
+    <div class="casio-wrapper">
+        
+        <div class="top-panel" id="top-panel">
+            
+            <div class="panel-section left">
+                <div class="brand-area">
+                    <span class="brand-piano">Piano</span><span class="brand-mitra">Mitra</span>
+                </div>
+                
+                <div class="controls-container grid-2x2">
+                    <button id="track-mode-btn" class="control-btn">🎵 Track</button>
+                    <button id="tone-mode-btn" class="control-btn">🎹 Tone</button>
+                    <button id="fullscreen-btn" class="control-btn">⛶ Full</button>
+                </div>
+            </div>
+            
+            <div class="panel-section center">
+                <div class="center-upper-display">
+                    <div id="digital-screen" class="lcd-screen">
+                        <div class="lcd-indicators">
+                            <span id="label-track" class="indicator">TRACK</span>
+                            <span id="label-tone" class="indicator">TONE</span>
+                            <span id="label-practice" class="indicator">PRACTICE</span>
+                            <span id="label-sustain" class="indicator" style="margin-left:auto; color:#ff9900; opacity:0.3;">SUS</span>
+                        </div>
+                        <div class="lcd-content">
+                            <span id="lcd-text">READY</span>
+                            <select id="lcd-selector" style="display:none;"></select>
+                        </div>
+                        <div id="lcd-status-icon"></div>
+                    </div>
+                </div>
+                <div class="center-lower-nav">
+                    <div class="reference-scroller" id="ref-scroller">
+                        <div class="reference-keys" id="ref-keys"></div>
+                    </div>
+                    <div class="nav-frame"></div>
+                </div>
+            </div>
+            
+            <div class="panel-section right">
+                <div class="controls-container grid-2x3" style="grid-template-rows: repeat(4, 1fr);">
+                    
+                    <button id="labels-btn" class="control-btn">ABC Keys</button>
+                    <button id="practice-btn" class="control-btn practice-btn">🎓 Learn</button>
+                    
+                    <button id="play-toggle-btn" class="control-btn play">▶ Play</button>
+                    <button id="record-toggle-btn" class="control-btn record">● Rec</button>
+                    
+                    <button id="sustain-btn" class="control-btn sustain-btn" style="color: #ff9900; border-color: #664400;">Sustain</button>
+                    <a href="instrument.html" class="control-btn exit-btn" style="display:flex; text-decoration:none;">Exit</a>
+                    
+                    <div class="nav-stack" style="grid-column: span 2;">
+                        <button id="screen-up-btn" class="nav-half-btn">▲</button>
+                        <button id="screen-down-btn" class="nav-half-btn">▼</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="panel-toggle" class="toggle-bar"><span id="toggle-icon">▲</span></button>
+
+        <div class="main-keyboard-area">
+            <div class="main-keys-scroller" id="main-scroller">
+                <div class="main-keys" id="main-keys"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script src="casio.js"></script> 
+    <script src="casio-upper.js"></script>
+    <script src="casio-app.js"></script> 
+    <script src="casio-left.js"></script>
+    <script src="casio-right.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyAutoGUI: The Complete Automation Command Reference with Examples</title>
+    <style>
+        /* --- Color Palette (Cream & Sky Blue) --- */
+        :root {
+            --cream-light: #f5f5dc;    /* Main Background */
+            --sky-blue: #87ceeb;       /* Accent Color */
+            --navy-dark: #2c3e50;      /* Dark Text/Headings */
+            --grey-text: #4a4a4a;      /* Body Text */
+            --code-bg-light: #e0f2ff;  /* Light Blue for Code Blocks */
+            --border-color: #b3d9ff;   /* Muted Blue Border */
+        }
+
+        /* --- Global Styles --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream-light);
+            color: var(--grey-text);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3 { color: var(--navy-dark); border-bottom: 2px solid var(--sky-blue); padding-bottom: 5px; margin-top: 40px; }
+        h1 { font-size: 2.8em; text-align: center; color: var(--sky-blue); border-bottom: 4px solid var(--navy-dark); padding-bottom: 10px; }
+        h2 { font-size: 1.8em; color: var(--navy-dark); }
+        h3 { font-size: 1.3em; color: var(--navy-dark); border-bottom: none; }
+
+        /* --- Navigation --- */
+        .toc { 
+            background-color: #ffffff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .toc a { display: block; margin: 8px 0; text-decoration: none; color: var(--sky-blue); font-weight: 600; transition: color 0.3s; }
+        .toc a:hover { color: var(--navy-dark); text-decoration: underline; }
+
+        /* --- Function Blocks --- */
+        .function-block {
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            background-color: #ffffff; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .method-list { margin-top: 10px; padding-left: 20px; }
+
+        /* --- Code & Syntax --- */
+        .syntax {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg-light);
+            color: var(--navy-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: bold;
+            border: 1px solid var(--sky-blue);
+        }
+        .example-code {
+            background-color: var(--code-bg-light);
+            color: var(--navy-dark);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 5px solid var(--sky-blue);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        .concept { color: #2980b9; font-weight: bold; } 
+        .key-constant { font-weight: bold; color: #e74c3c; } 
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🤖 PyAutoGUI: The Complete Automation Command Reference with Examples</h1>
+        <p style="text-align: center; color: var(--grey-text);">An exhaustive guide to every function, method, and constant for desktop automation.</p>
+    </header>
+
+    <div class="toc">
+        <h2>🧭 Navigation Directory</h2>
+        <a href="#setup-config">🛠️ Global Setup & Failsafes</a>
+        <a href="#mouse-control">🖱️ Mouse Movement & Clicks</a>
+        <a href="#keyboard-input">⌨️ Keyboard Input & Shortcuts</a>
+        <a href="#vision-recognition">👁️ Vision & Image Recognition</a>
+        <a href="#window-management">🪟 Window & Multi-Monitor Control</a>
+        <a href="#dialog-boxes">💬 Alerts & User Feedback</a>
+        <a href="#advanced-utilities">⚙️ Advanced Utilities & Constants</a>
+    </div>
+
+    <hr>
+
+    <section id="setup-config">
+        <h2>🛠️ Global Setup & Failsafes</h2>
+
+        <div class="function-block">
+            <h3>Emergency Stop: <span class="syntax">pyautogui.FAILSAFE</span></h3>
+            <p><span class="concept">Description:</span> **The Script's Safety Anchor.** When <span class="key-constant">True</span> (default), moving the mouse to the absolute **top-left corner (0, 0)** of the screen will instantly halt the script.</p>
+            <pre class="example-code"><code>import pyautogui
+# Disable failsafe (use with extreme caution!)
+pyautogui.FAILSAFE = False </code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Script Pacing: <span class="syntax">pyautogui.PAUSE</span></h3>
+            <p><span class="concept">Description:</span> Sets a global delay (in seconds) that is executed automatically **after every PyAutoGUI function call**. Crucial for stable, reliable automation.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.PAUSE = 0.5 # Wait 0.5 seconds after every command
+pyautogui.click(100, 200) # Waits 0.5s after click
+pyautogui.write('hello')  # Waits 0.5s after write</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Screen Dimensions: <span class="syntax">pyautogui.size()</span></h3>
+            <p><span class="concept">Description:</span> Returns the width and height of the primary monitor as a `(width, height)` named tuple. Use for dynamic scaling.</p>
+            <pre class="example-code"><code>import pyautogui
+screenWidth, screenHeight = pyautogui.size()
+print(f"Screen is {screenWidth}x{screenHeight}") # e.g., Screen is 1920x1080</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="mouse-control">
+        <h2>🖱️ Mouse Movement & Clicks</h2>
+
+        <div class="function-block">
+            <h3>Positioning: <span class="syntax">position()</span>, <span class="syntax">moveTo(x, y, duration=D)</span>, <span class="syntax">move(xOffset, yOffset)</span></h3>
+            <p><span class="concept">Description:</span> `position()` gets current coordinates. `moveTo()` travels to an absolute coordinate. `move()` (or `moveRel()`) shifts cursor relative to its current location. `duration` controls speed.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.moveTo(100, 100, duration=0.5) # Move to (100,100) over 0.5 seconds
+pyautogui.move(50, 0, duration=0.2)     # Move 50 pixels right from current position
+current_x, current_y = pyautogui.position()
+print(f"Current mouse position: ({current_x}, {current_y})")</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Clicking Actions: <span class="syntax">click(x, y, button='left')</span></h3>
+            <p><span class="concept">Description:</span> Performs a mouse press and release. You can specify coordinates, or omit them to click at the current position. Dedicated functions exist for convenience: <span class="syntax">doubleClick()</span>, <span class="syntax">rightClick()</span>, and the less-used <span class="syntax">middleClick()</span>.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.click(100, 200)       # Clicks at (100, 200)
+pyautogui.rightClick()          # Right-clicks at current position
+pyautogui.doubleClick(x=500, y=300) # Double-clicks at (500, 300)
+pyautogui.mouseDown()           # Presses left mouse button down
+pyautogui.mouseUp()             # Releases left mouse button</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Dragging: <span class="syntax">dragTo(x, y, duration=D)</span>, <span class="syntax">dragRel(xOffset, yOffset, duration=D)</span></h3>
+            <p><span class="concept">Description:</span> Moves the mouse while the button (default: left) is held down. Used for selecting text or dragging windows/files.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.moveTo(500, 500) # Start drag from here
+pyautogui.dragRel(200, 0, duration=1) # Drag 200 pixels right, holding button</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Scrolling: <span class="syntax">scroll(amount)</span>, <span class="syntax">hscroll(amount)</span>, <span class="syntax">vscroll(amount)</span></h3>
+            <p><span class="concept">Description:</span> Simulates the mouse wheel. `scroll` is generic vertical scroll. `hscroll` and `vscroll` provide explicit horizontal and vertical control. Positive `amount` scrolls up/left.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.scroll(500)   # Scroll up 500 units
+pyautogui.vscroll(-200) # Scroll down 200 units
+pyautogui.hscroll(100)  # Scroll right 100 units</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="keyboard-input">
+        <h2>⌨️ Keyboard Input & Shortcuts</h2>
+
+        <div class="function-block">
+            <h3>Core Input: <span class="syntax">write('text')</span>, <span class="syntax">press('key')</span>, <span class="syntax">hotkey(k1, k2, ...)</span></h3>
+            <p><span class="concept">Description:</span> **`write`** types a string. **`press`** simulates a single key press (e.g., `'enter'`). **`hotkey`** executes a shortcut (e.g., `'ctrl', 's'`).</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.write('Hello, World!', interval=0.1) # Types with a delay between chars
+pyautogui.press('enter')                       # Presses the Enter key
+pyautogui.hotkey('ctrl', 'shift', 'esc')       # Opens Task Manager (Windows)</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Key State: <span class="syntax">keyDown('shift')</span>, <span class="syntax">keyUp('shift')</span></h3>
+            <p><span class="concept">Description:</span> Press and hold (`keyDown`) or release (`keyUp`) a key. Necessary for complex actions spanning multiple commands.</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.keyDown('shift')
+pyautogui.press('home') # Selects text to the beginning of the line
+pyautogui.keyUp('shift')</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>State Checkers: <span class="syntax">pyautogui.isCtrlDown()</span></h3>
+            <p><span class="concept">Description:</span> Boolean functions that check if a specific modifier key is currently being held down by the user or the script.</p>
+            <pre class="example-code"><code>import pyautogui
+if pyautogui.isShiftDown():
+    print("Shift key is pressed!")</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="vision-recognition">
+        <h2>👁️ Vision & Image Recognition</h2>
+
+        <div class="function-block">
+            <h3>Capture: <span class="syntax">screenshot(filename=None, region=None)</span></h3>
+            <p><span class="concept">Description:</span> Captures the screen or a defined rectangular `region` (left, top, width, height). Returns a Pillow `Image` object.</p>
+            <pre class="example-code"><code>import pyautogui
+# Take full screenshot and save
+pyautogui.screenshot('my_screenshot.png')
+# Capture a specific region
+region_image = pyautogui.screenshot(region=(0, 0, 300, 400)) # Top-left 300x400 area</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Locators: <span class="syntax">locateCenterOnScreen('icon.png', confidence=0.9)</span></h3>
+            <p><span class="concept">Description:</span> Finds image matches on the screen. `locateOnScreen` returns the bounding box. `locateCenterOnScreen` returns the center coordinates. `locateAllOnScreen` returns all matches. `confidence` requires `opencv-python`.</p>
+            <pre class="example-code"><code>import pyautogui
+try:
+    button_location = pyautogui.locateCenterOnScreen('my_button.png', confidence=0.9)
+    if button_location:
+        pyautogui.click(button_location)
+        print("Clicked the button!")
+except pyautogui.ImageNotFoundException:
+    print("Button not found on screen.")</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Color Analysis: <span class="syntax">pixel(x, y)</span>, <span class="syntax">pixelMatchesColor(x, y, color, tolerance=0)</span></h3>
+            <p><span class="concept">Description:</span> `pixel` returns the RGB color at $(x, y)$. `pixelMatchesColor` checks if the pixel color matches a target color, optionally within a `tolerance` range.</p>
+            <pre class="example-code"><code>import pyautogui
+rgb = pyautogui.pixel(100, 200)
+print(f"Color at (100, 200): {rgb}") # e.g., (255, 255, 255) for white
+
+if pyautogui.pixelMatchesColor(50, 50, (255, 0, 0), tolerance=10):
+    print("Pixel at (50,50) is red!")</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Error Control: <span class="syntax">useImageNotFoundException()</span></h3>
+            <p><span class="concept">Description:</span> Changes locator functions to **raise an exception** instead of returning `None` when an image is not found, enabling clearer error handling.</p>
+            <pre class="example-code"><code>import pyautogui
+# After this call, locateOnScreen will raise an exception if not found
+pyautogui.useImageNotFoundException() 
+try:
+    pyautogui.locateOnScreen('non_existent.png')
+except pyautogui.ImageNotFoundException:
+    print("Image not found (as expected).")</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="window-management">
+        <h2>🪟 Window & Multi-Monitor Control</h2>
+
+        <div class="function-block">
+            <h3>Window Search & Control: <span class="syntax">getWindowsWithTitle(T)</span>, <span class="syntax">getActiveWindow()</span></h3>
+            <p><span class="concept">Description:</span> Retrieves **Window Objects**. `getWindowsWithTitle` finds windows by their title. `getActiveWindow` finds the currently focused window. `getAllTitles` returns a list of all window names.</p>
+            <pre class="example-code"><code>import pyautogui
+# Find all notepad windows
+notepad_windows = pyautogui.getWindowsWithTitle("Untitled - Notepad")
+if notepad_windows:
+    notepad_window = notepad_windows[0]
+    notepad_window.activate()  # Bring it to front
+    notepad_window.maximize()  # Maximize it
+    print(f"Notepad window at: {notepad_window.left}, {notepad_window.top}")</code></pre>
+            <p><strong>Common Window Object Methods (Called on the returned object):</strong>
+                <ul class="method-list">
+                    <li><span class="syntax">window.activate()</span>: Brings window to front.</li>
+                    <li><span class="syntax">window.maximize()</span> / <span class="syntax">window.minimize()</span> / <span class="syntax">window.restore()</span></li>
+                    <li><span class="syntax">window.resizeTo(w, h)</span> / <span class="syntax">window.moveTo(x, y)</span></li>
+                    <li><span class="syntax">window.close()</span>: Closes the window.</li>
+                    <li><span class="syntax">window.isMaximized</span> / <span class="syntax">isMinimized</span> / <span class="syntax">isActive</span>: Boolean properties.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="function-block">
+            <h3>Monitor Awareness: <span class="syntax">getAllScreens()</span>, <span class="syntax">getPrimaryScreen()</span></h3>
+            <p><span class="concept">Description:</span> Provides geometry for all connected monitors (`getAllScreens()`) or just the main one (`getPrimaryScreen()`). Essential for reliable multi-monitor scripts.</p>
+            <pre class="example-code"><code>import pyautogui
+screens = pyautogui.getAllScreens()
+for i, screen in enumerate(screens):
+    print(f"Screen {i}: {screen.width}x{screen.height} at ({screen.left},{screen.top})")</code></pre>
+        </div>
+        
+        <div class="function-block">
+            <h3>On-Screen Check: <span class="syntax">pyautogui.onScreen(x, y)</span></h3>
+            <p><span class="concept">Description:</span> Returns `True` if the coordinate $(x, y)$ is visible on any connected screen.</p>
+            <pre class="example-code"><code>import pyautogui
+if pyautogui.onScreen(2500, 100): # Assuming single 1920px width monitor
+    print("Coordinate is on screen.")
+else:
+    print("Coordinate is off screen.")</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="dialog-boxes">
+        <h2>💬 Alerts & User Feedback</h2>
+        <p>These functions pause script execution until the user interacts with the generated dialog box.</p>
+
+        <div class="function-block">
+            <h3>Dialogs: <span class="syntax">alert(T)</span>, <span class="syntax">confirm(T)</span>, <span class="syntax">prompt(T)</span>, <span class="syntax">password(T)</span></h3>
+            <p><span class="concept">Description:</span> **`alert`** (OK button). **`confirm`** (custom buttons, returns button text). **`prompt`** (text input, returns entered text). **`password`** (hidden text input).</p>
+            <pre class="example-code"><code>import pyautogui
+pyautogui.alert('Automation complete!')
+
+response = pyautogui.confirm('Continue?', buttons=['Yes', 'No'])
+if response == 'Yes':
+    print("User chose to continue.")
+
+user_input = pyautogui.prompt('Enter your name:')
+if user_input:
+    print(f"User entered: {user_input}")</code></pre>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="advanced-utilities">
+        <h2>⚙️ Advanced Utilities & Constants</h2>
+
+        <div class="function-block">
+            <h3>Debugging Tool: <span class="syntax">pyautogui.mouseInfo()</span></h3>
+            <p><span class="concept">Description:</span> **Launches a separate GUI tool** that displays the live coordinates and pixel color under the cursor. Indispensable for gathering exact locations for script creation. </p>
+            <pre class="example-code"><code>import pyautogui
+# Run this from your terminal to get real-time mouse info
+# It opens a small window that updates live.
+# pyautogui.mouseInfo() </code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Movement Easing: <span class="syntax">pyautogui.easeInQuad</span>, <span class="syntax">pyautogui.easeInOutCubic</span>, etc.</h3>
+            <p><span class="concept">Description:</span> **20+ constants** used in the `tween` parameter of `moveTo()`/`dragTo()`. They define the speed profile (acceleration/deceleration) of the mouse movement.</p>
+            <pre class="example-code"><code>import pyautogui
+# Move mouse with an "ease out" effect (starts fast, slows down)
+pyautogui.moveTo(500, 500, duration=1, tween=pyautogui.easeOutQuad)</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Pillow Image Object Methods (from `screenshot()`):</h3>
+            <p><span class="concept">Description:</span> When `pyautogui.screenshot()` returns an image object, you can use Pillow's methods on it.</p>
+            <ul class="method-list">
+                <li><span class="syntax">image.save('file.png')</span>: Saves the image.</li>
+                <li><span class="syntax">image.crop((l, t, r, b))</span>: Crops a region.</li>
+                <li><span class="syntax">image.getpixel(x, y)</span>: Gets pixel color within the captured image.</li>
+            </ul>
+            <pre class="example-code"><code>import pyautogui
+full_screenshot = pyautogui.screenshot()
+# Crop a 100x100 square from the top-left of the screenshot
+cropped_image = full_screenshot.crop((0, 0, 100, 100))
+cropped_image.save('cropped_part.png')</code></pre>
+        </div>
+
+        <div class="function-block">
+            <h3>Key Constants: <span class="syntax">pyautogui.KEYBOARD_KEYS</span>, <span class="syntax">pyautogui.VERSION</span>, <span class="syntax">pyautogui.DARWIN</span></h3>
+            <p><span class="concept">Description:</span> Useful variables like the list of all valid key names (`KEYBOARD_KEYS`), the package version (`VERSION`), and system info flags (`DARWIN`, `LINUX`, `WIN32`).</p>
+            <pre class="example-code"><code>import pyautogui
+print(f"PyAutoGUI Version: {pyautogui.VERSION}")
+if pyautogui.DARWIN: # Check if running on macOS
+    print("Running on macOS.")</code></pre>
+        </div>
+    </section>
+
+    <footer>
+        <p style="color: var(--grey-text);">This reference includes all public-facing PyAutoGUI functions and methods from its core and helper libraries (PyGetWindow, Pillow).</p>
+    </footer>
+
+</body>
+</html>

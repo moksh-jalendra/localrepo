@@ -1,0 +1,73 @@
+/* casio-right.css - Right Panel & Navigation */
+
+.panel-section.right {
+    width: 30%;
+    padding: 8px;
+    border-left: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    background: #151515;
+}
+
+/* Forces the grid to accommodate the extra Sustain button */
+.controls-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr); /* Changed to 4 rows */
+    gap: 6px;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+}
+
+/* Button Styles */
+.control-btn {
+    background: #333; color: #ccc;
+    border: 1px solid #555; border-radius: 4px;
+    padding: 0; font-size: 0.65em; font-weight: bold;
+    cursor: pointer; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    transition: all 0.1s;
+}
+.control-btn:active { background: #444; color: white; transform: translateY(1px); }
+
+/* Feature Colors */
+.practice-btn { color: #ffd700; }
+.practice-btn.active { background: #ffd700; color: black; box-shadow: 0 0 8px #ffd700; }
+
+.record { color: #ff3366; }
+.record.active { background: #ff3366; color: white; box-shadow: 0 0 8px #ff3366; }
+
+.play { color: #4af626; }
+.play.active { background: #4af626; color: black; box-shadow: 0 0 8px #4af626; }
+
+.exit-btn { border-color: #666; color: #888; }
+.exit-btn:hover { border-color: #fff; color: #fff; }
+
+/* SUSTAIN BUTTON */
+.sustain-btn { color: #ff9900; border-color: #664400; }
+.sustain-btn.active { 
+    background: #ff9900; color: black; 
+    box-shadow: 0 0 8px #ff9900; border-color: #ff9900;
+}
+
+/* Nav Stack (Up/Down Buttons) */
+.nav-stack {
+    display: flex;
+    flex-direction: row; 
+    height: 100%;
+    border: 1px solid #555;
+    border-radius: 4px;
+    overflow: hidden;
+    grid-column: span 2; /* Spans full bottom row */
+}
+
+.nav-half-btn {
+    background: #222; color: #aaa;
+    border: none; font-size: 0.6em; cursor: pointer;
+    flex-grow: 1; display: flex; align-items: center; justify-content: center;
+    transition: background 0.1s;
+}
+.nav-half-btn:first-child { border-right: 1px solid #444; }
+.nav-half-btn:active { background: #00bfff; color: #000; }

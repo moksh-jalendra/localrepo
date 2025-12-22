@@ -1,0 +1,106 @@
+/* profileview.css - Public Read-Only Profile */
+
+.profile-view-section {
+    padding: 10px 15px 80px 15px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1em;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/* Header Card */
+.pv-header-card {
+    background: var(--card-bg-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+}
+
+.pv-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary-color), #0088cc);
+    color: white; font-size: 2.5em; font-weight: bold;
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+}
+
+.pv-info { width: 100%; }
+
+.pv-name-row {
+    display: flex; justify-content: center; align-items: center; gap: 6px;
+    margin-bottom: 5px;
+}
+
+.pv-name-row h1 {
+    font-size: 1.5em; color: var(--text-color); margin: 0;
+}
+
+.pv-bio {
+    color: var(--text-muted); font-style: italic; font-size: 0.95em;
+    margin-bottom: 12px; white-space: pre-wrap;
+}
+
+.pv-stats {
+    font-size: 0.8em; color: #666;
+    border-top: 1px solid rgba(100,100,100,0.1);
+    padding-top: 10px;
+}
+
+/* Tabs */
+.pv-tabs {
+    display: flex; border-bottom: 1px solid #333; margin-bottom: 15px;
+}
+.pv-tab {
+    flex: 1; text-align: center; padding: 10px;
+    color: var(--text-muted); font-weight: bold; font-size: 0.9em;
+}
+.pv-tab.active {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Posts List (Reuse Feed styling logic but simplified) */
+.pv-post-card {
+    background: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(100,100,100,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+}
+
+.pv-post-info {
+    display: flex; align-items: center; gap: 12px; overflow: hidden;
+}
+
+.pv-post-icon { font-size: 1.5em; }
+
+.pv-post-details { display: flex; flex-direction: column; overflow: hidden; }
+.pv-post-title { font-weight: bold; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pv-post-date { font-size: 0.7em; color: var(--text-muted); }
+
+.pv-action-btn {
+    background: var(--secondary-color); color: #000;
+    border: none; padding: 6px 12px; border-radius: 20px;
+    font-size: 0.8em; font-weight: bold; cursor: pointer;
+    white-space: nowrap; min-width: 70px;
+}
+.pv-action-btn.playing { background: #ff4444; color: white; }
+
+/* Light Mode Overrides */
+body.light-mode .pv-header-card { border-color: #ddd; }
+body.light-mode .pv-post-card { border-color: #ddd; }

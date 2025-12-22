@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sound Lab - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="soundlab.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="top-bar">
+            <h2>Sound Lab 🎛️</h2>
+        </header>
+
+        <main class="soundlab-container">
+            
+            <div class="mode-selector">
+                <button id="mode-pitch-btn" class="mode-btn active">🎹 Synth</button>
+                <button id="mode-drum-btn" class="mode-btn">🥁 Drum</button>
+                <button id="mode-kit-btn" class="mode-btn">📦 Kit</button>
+            </div>
+
+            <div id="editor-pitch" class="editor-section active">
+                <div class="card-box">
+                    <label>Tone Name</label>
+                    <input type="text" id="ct-name-pitch" value="My Synth">
+                    
+                    <label>Waveform</label>
+                    <select id="ct-wave-pitch">
+                        <option value="triangle">Triangle (Classic Piano)</option>
+                        <option value="sine">Sine (Flute/Soft)</option>
+                        <option value="square">Square (Retro Game)</option>
+                        <option value="sawtooth">Sawtooth (Sharp Lead)</option>
+                    </select>
+
+                    <label>Duration (Decay) <span id="val-duration" class="val-badge">0.5s</span></label>
+                    <input type="range" id="ct-duration" min="0.1" max="3.0" step="0.1" value="0.5">
+
+                    <label>Detune (Effect) <span id="val-detune" class="val-badge">0</span></label>
+                    <input type="range" id="ct-detune" min="-1200" max="1200" step="50" value="0">
+                    
+                    <label>Volume <span id="val-gain" class="val-badge">0.3</span></label>
+                    <input type="range" id="ct-gain" min="0.1" max="1.0" step="0.1" value="0.3">
+                </div>
+            </div>
+
+            <div id="editor-drum" class="editor-section">
+                <div class="card-box">
+                    <label>Sound Name</label>
+                    <input type="text" id="ct-name-drum" value="Custom Kick">
+
+                    <label>Base Model</label>
+                    <select id="ct-octa-kit">
+                        <option value="Kick">Kick (Bass Drum)</option>
+                        <option value="Snare">Snare (Sharp Hit)</option>
+                        <option value="Tom1">Tom (Melodic Hit)</option>
+                        <option value="HiHat">Hi-Hat (Metallic)</option>
+                    </select>
+
+                    <label>Frequency / Pitch <span id="val-drum-pitch" class="val-badge">150Hz</span></label>
+                    <input type="range" id="ct-drum-pitch" min="50" max="800" step="10" value="150">
+                    
+                    <p class="hint-text">Adjust pitch to turn a Low Tom into a High Tom, or a Kick into a Sub-Bass.</p>
+                </div>
+            </div>
+
+            <div id="editor-kit" class="editor-section">
+                <div class="card-box">
+                    <label>Kit Name</label>
+                    <input type="text" id="ct-name-kit" value="My Custom Kit">
+                    
+                    <div class="kit-grid" id="kit-pads-container">
+                        <div style="text-align:center; padding:20px;">Loading elements...</div>
+                    </div>
+                    
+                    <button id="set-temp-kit-btn" class="control-btn" style="background:#ff9900; margin-top:15px; color:black;">
+                        ⚡ Set as Active Kit (Octapad)
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-footer-spacer"></div>
+            <div class="floating-actions">
+                <div id="status-msg" class="status-toast">Ready</div>
+                <div class="btn-row">
+                    <button id="test-btn" class="control-btn test-btn">▶ Test</button>
+                    <button id="save-btn" class="control-btn save-btn">💾 Save</button>
+                </div>
+            </div>
+
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Feed</span></a>
+            <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+            <a href="instrument.html" class="nav-item active"><span class="nav-icon">🎸</span><span class="nav-label">Instruments</span></a>
+            <a href="hunt.html" class="nav-item"><span class="nav-icon">🔎</span><span class="nav-label">Hunt</span></a>
+        </nav>
+    </div>
+
+    <script src="theme.js"></script>
+    <script src="soundlab.js"></script>
+</body>
+</html>

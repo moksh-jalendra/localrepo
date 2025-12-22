@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover how PianoMitra's AI Tutor uses Google Gemini API to teach music. Learn prompt engineering for musicians and how AI generates melodies.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385"
+     crossorigin="anonymous"></script>
+    <title>AI in Music Education - PianoMitra Blog</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article-header { border-bottom: 1px solid #333; margin-bottom: 30px; padding-bottom: 20px; }
+        .article-header h1 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 10px; }
+        .meta-info { color: var(--secondary-color); font-weight: bold; font-size: 0.9em; text-transform: uppercase; }
+        .content-body { color: var(--text-color); font-size: 1.1em; line-height: 1.8; }
+        .content-body h2 { color: var(--text-main); margin-top: 40px; margin-bottom: 20px; font-size: 1.5em; border-left: 4px solid var(--secondary-color); padding-left: 15px; }
+        .content-body p { margin-bottom: 20px; color: #ccc; }
+        .code-block { background: #222; padding: 15px; border-radius: 6px; font-family: monospace; color: #4af626; border: 1px solid #444; margin-bottom: 20px; font-size: 0.9em; }
+        
+        body.light-mode .content-body p { color: #333; }
+        body.light-mode .article-header { border-color: #ddd; }
+        body.light-mode .code-block { background: #eee; color: #008800; border-color: #ccc; }
+        
+        .cta-box { background: var(--card-bg-color); border: 1px solid var(--secondary-color); padding: 30px; border-radius: 12px; margin-top: 60px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="height: auto; overflow-y: auto;">
+        
+        <header class="top-bar">
+            <h2>PianoMitra Knowledge Base 📚</h2>
+        </header>
+
+        <nav class="custom-nav" style="padding: 15px 20px; border-bottom: 1px solid rgba(100,100,100,0.2);">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none; margin-right: 15px;">Home</a>
+            <a href="blog.html" style="color: var(--secondary-color); text-decoration: none; font-weight: bold;">← Back to All Articles</a>
+        </nav>
+
+        <main class="article-container">
+            
+            <header class="article-header">
+                <span class="meta-info">Technology • 6 Min Read</span>
+                <h1>Mitra Bot: How AI is Revolutionizing Music Education</h1>
+            </header>
+
+            <div class="content-body">
+                <p>Artificial Intelligence has transformed visual art and writing, and now it is coming for music. However, at PianoMitra, we believe AI shouldn't replace the musician—it should empower them. Our <a href="ai.html" style="color:var(--secondary-color)">AI Tutor (Mitra Bot)</a> is designed not to write songs for you, but to help you understand how songs are written.</p>
+
+                <h2>Under the Hood: Google Gemini API</h2>
+                <p>Mitra Bot is powered by Google's Gemini Pro model. When you type a question into the chat, we wrap your query in a specific "System Prompt." This system prompt tells the AI: "You are a helpful music tutor. You verify facts about music theory, and if asked for a melody, you output it in a specific JSON format."</p>
+                <p>This allows us to turn text generation into audio generation. The AI doesn't actually "hear" music; it understands music as a series of mathematical relationships between notes.</p>
+
+                <h2>JSON Music Notation</h2>
+                <p>When you ask Mitra Bot to "Create a sad melody," it generates a code block that looks like this:</p>
+                <div class="code-block">
+[
+  {"note": "A4", "duration": 500, "time": 0},
+  {"note": "C5", "duration": 500, "time": 500},
+  {"note": "E5", "duration": 1000, "time": 1000}
+]
+                </div>
+                <p>Our application reads this JSON. It sees "A4" and tells the oscillator to vibrate at 440Hz. It sees "duration: 500" and keeps the sound gate open for half a second. This seamless translation from Text -> Code -> Audio is what makes the AI Tutor feel magical.</p>
+
+                <h2>Prompt Engineering for Musicians</h2>
+                <p>To get the best out of the AI Tutor, you need to learn how to ask the right questions. This skill is called "Prompt Engineering." Here are some examples of weak vs. strong prompts:</p>
+                <ul>
+                    <li><strong>Weak:</strong> "Make music." (The AI doesn't know the mood, genre, or complexity you want).</li>
+                    <li><strong>Strong:</strong> "Generate a 4-bar melody using the C Major scale. Start slow and get faster. Use mostly quarter notes."</li>
+                </ul>
+                <p>By being specific, you force the AI to utilize its knowledge of music theory. You can even ask it to mimic styles, like "Create a bassline in the style of 80s synth-pop."</p>
+
+                <h2>The Limitations of AI</h2>
+                <p>It is important to remember that AI creates based on patterns it has seen before. It is excellent at following rules (like scales and chords) but struggles with "feel" or "groove." An AI might place a note perfectly on the beat, but a human drummer might play slightly behind the beat to create a relaxed feeling.</p>
+                <p>Use Mitra Bot as a starting point. Ask it for a chord progression, but then play it yourself on the Casio Studio. Add your own rhythm, your own dynamics, and your own soul. The AI provides the bricks; you build the house.</p>
+
+                <h2>Future Developments</h2>
+                <p>We are currently working on expanding Mitra Bot's capabilities. Future updates may include the ability for the AI to analyze *your* playing and offer feedback on your timing, or to generate complex harmonies to accompany your melodies in real-time. The intersection of AI and music education is just beginning.</p>
+            </div>
+
+            <div class="cta-box">
+                <h3>Chat with Mitra Bot</h3>
+                <p>Ask for a melody or a theory lesson right now.</p>
+                <a href="ai.html" class="control-btn" style="background: var(--primary-color); color: white; display: inline-block; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 10px;">Open AI Tutor</a>
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.9em; border-top: 1px solid #333; margin-top: 40px;">
+            <p>&copy; 2025 PianoMitra. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="theme.js"></script>
+</body>
+</html>

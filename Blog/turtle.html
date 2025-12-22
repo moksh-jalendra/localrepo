@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Python Turtle | Complete Tutorial & Reference</title>
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #2ecc71; /* Turtle Green */
+            --dark-bg: #1e1e1e;
+            --sidebar-bg: #252526;
+            --text-color: #d4d4d4;
+            --header-height: 60px;
+            --sidebar-width: 280px;
+            --code-bg: #000000;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            height: var(--header-height);
+            background-color: #111;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            display: flex;
+            margin-top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid #333;
+            overflow-y: auto;
+            flex-shrink: 0;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+            color: #aaa;
+        }
+
+        .nav-item:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: #37373d;
+            border-left: 3px solid var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-width: 1000px;
+            margin: 0 auto;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 { color: #fff; margin-bottom: 15px; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 30px; font-size: 2.2rem; }
+        h3 { margin-top: 30px; color: var(--primary-color); border-bottom: 1px solid #333; padding-bottom: 5px; }
+        p { line-height: 1.6; margin-bottom: 15px; color: #ccc; }
+        ul { margin-left: 20px; margin-bottom: 20px; line-height: 1.7; color: #ccc; }
+        li code { background: #333; padding: 2px 5px; border-radius: 4px; font-family: monospace; color: #fff; }
+
+        /* --- CODE BLOCKS --- */
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .code-header {
+            background-color: #333;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: #aaa;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+        .copy-btn:hover { background: #444; color: #fff; }
+
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #d4d4d4;
+            font-size: 0.95rem;
+        }
+        
+        /* Syntax Highlighting */
+        .kw { color: #569cd6; } /* Keyword */
+        .fn { color: #dcdcaa; } /* Function */
+        .str { color: #ce9178; } /* String */
+        .num { color: #b5cea8; } /* Number */
+        .com { color: #6a9955; } /* Comment */
+
+        /* --- NAVIGATION BUTTONS --- */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .nav-btn:hover { background-color: var(--primary-color); }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                max-height: 150px; 
+                border-bottom: 1px solid #333;
+                border-right: none;
+            }
+            .content { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            🐢 PythonTurtle<span style="color:#fff;">Docs</span>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <nav class="sidebar" id="sidebar">
+            </nav>
+
+        <main class="content" id="main-content">
+            </main>
+    </div>
+
+    <script>
+        // --- COMPLETE TUTORIAL DATA ---
+        const tutorialData = [
+            {
+                id: "intro",
+                title: "1. Introduction",
+                content: `
+                    <h1>Introduction to Python Turtle</h1>
+                    <p>Turtle is a pre-installed Python library used for teaching graphics. It was part of the original Logo programming language from 1966.</p>
+                    <h3>Basic Setup</h3>
+                    <div class="code-container">
+                        <div class="code-header"><span>setup.py</span> <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code><span class="kw">import</span> turtle
+t = turtle.<span class="fn">Turtle</span>()
+t.<span class="fn">forward</span>(<span class="num">100</span>)
+turtle.<span class="fn">done</span>()</code></pre>
+                    </div>
+                `
+            },
+            {
+                id: "movement",
+                title: "2. Movement & Positioning",
+                content: `
+                    <h1>Movement & Positioning</h1>
+                    <p>These functions control how the turtle moves across the screen.</p>
+                    
+                    <h3>Standard Movement</h3>
+                    <ul>
+                        <li><code>forward(d)</code> | <code>fd(d)</code>: Move forward by <em>d</em> steps.</li>
+                        <li><code>backward(d)</code> | <code>bk(d)</code> | <code>back(d)</code>: Move backward.</li>
+                        <li><code>right(angle)</code> | <code>rt(angle)</code>: Turn right by degrees.</li>
+                        <li><code>left(angle)</code> | <code>lt(angle)</code>: Turn left by degrees.</li>
+                        <li><code>circle(radius, extent)</code>: Draw a circle.</li>
+                        <li><code>dot(size, color)</code>: Draw a dot.</li>
+                        <li><code>stamp()</code>: Leave a stamp of the turtle.</li>
+                        <li><code>clearstamp(id)</code> / <code>clearstamps(n)</code>: Remove stamps.</li>
+                        <li><code>speed(s)</code>: Set speed (0=fastest, 10=fast, 1=slow).</li>
+                    </ul>
+
+                    <h3>Teleporting (No Drawing)</h3>
+                    <ul>
+                        <li><code>goto(x, y)</code> | <code>setpos()</code> | <code>setposition()</code>: Move to coordinates.</li>
+                        <li><code>teleport(x, y)</code>: Instantly jump to position.</li>
+                        <li><code>home()</code>: Go to (0,0).</li>
+                        <li><code>setx(x)</code> / <code>sety(y)</code>: Set X or Y coordinate directly.</li>
+                        <li><code>setheading(angle)</code> | <code>seth()</code>: Face a specific direction.</li>
+                    </ul>
+                    
+                    <h3>Information</h3>
+                    <ul>
+                        <li><code>position()</code> | <code>pos()</code>: Get current (x, y).</li>
+                        <li><code>xcor()</code> / <code>ycor()</code>: Get X or Y coordinate.</li>
+                        <li><code>heading()</code>: Get current angle.</li>
+                        <li><code>distance(x, y)</code>: Distance to a point.</li>
+                        <li><code>towards(x, y)</code>: Angle towards a point.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "pen-control",
+                title: "3. Pen & Drawing Control",
+                content: `
+                    <h1>Pen & Color Control</h1>
+                    <p>Control the appearance of lines and shapes.</p>
+
+                    <h3>Pen State</h3>
+                    <ul>
+                        <li><code>pendown()</code> | <code>pd()</code> | <code>down()</code>: Put pen down (draws).</li>
+                        <li><code>penup()</code> | <code>pu()</code> | <code>up()</code>: Lift pen up (no drawing).</li>
+                        <li><code>pensize(w)</code> | <code>width(w)</code>: Set line thickness.</li>
+                        <li><code>isdown()</code>: Check if pen is down.</li>
+                        <li><code>pen()</code>: Return or set a "pen dictionary" of settings.</li>
+                    </ul>
+
+                    <h3>Colors & Filling</h3>
+                    <ul>
+                        <li><code>pencolor(c)</code>: Color of the line.</li>
+                        <li><code>fillcolor(c)</code>: Color inside the shape.</li>
+                        <li><code>color(pen, fill)</code>: Set both colors.</li>
+                        <li><code>begin_fill()</code>: Start fill area.</li>
+                        <li><code>end_fill()</code>: End fill area.</li>
+                        <li><code>filling()</code>: Check if currently filling.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "turtle-state",
+                title: "4. Turtle Appearance",
+                content: `
+                    <h1>Turtle Appearance</h1>
+                    <p>Customize how the "cursor" (the turtle itself) looks.</p>
+                    
+                    <ul>
+                        <li><code>showturtle()</code> | <code>st()</code>: Make turtle visible.</li>
+                        <li><code>hideturtle()</code> | <code>ht()</code>: Hide the turtle.</li>
+                        <li><code>isvisible()</code>: Check visibility.</li>
+                        <li><code>shape("name")</code>: Change shape ('turtle', 'arrow', 'circle', etc).</li>
+                        <li><code>resizemode(mode)</code>: 'auto', 'user', or 'noresize'.</li>
+                        <li><code>shapesize()</code> | <code>turtlesize()</code>: Scale the shape size.</li>
+                        <li><code>shearfactor()</code>: Skew the shape.</li>
+                        <li><code>tilt(angle)</code>: Rotate shape without changing heading.</li>
+                        <li><code>tiltangle(angle)</code>: Set tilt angle.</li>
+                        <li><code>shapetransform()</code>: Advanced matrix transform of shape.</li>
+                        <li><code>get_shapepoly()</code>: Get coordinates of current shape polygon.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "events",
+                title: "5. Events & Interaction",
+                content: `
+                    <h1>Events & Interaction</h1>
+                    <p>Make your turtle program interactive (Mouse & Keyboard).</p>
+
+                    <h3>Mouse Events</h3>
+                    <ul>
+                        <li><code>onclick(fun)</code>: Run function on turtle click.</li>
+                        <li><code>onrelease(fun)</code>: Run function on mouse release.</li>
+                        <li><code>ondrag(fun)</code>: Run function on drag.</li>
+                    </ul>
+
+                    <h3>Keyboard & Screen Events</h3>
+                    <ul>
+                        <li><code>listen()</code>: Focus window to catch keys.</li>
+                        <li><code>onkey(fun, key)</code> | <code>onkeyrelease()</code>: Run on key press/release.</li>
+                        <li><code>onkeypress(fun, key)</code>: Run while key is pressed.</li>
+                        <li><code>onscreenclick(fun)</code>: Click anywhere on screen.</li>
+                        <li><code>ontimer(fun, t)</code>: Run function after <em>t</em> milliseconds.</li>
+                        <li><code>mainloop()</code> | <code>done()</code>: Start event loop.</li>
+                    </ul>
+                    
+                     <h3>Input Dialogs</h3>
+                     <ul>
+                        <li><code>textinput(title, prompt)</code>: Pop-up text box.</li>
+                        <li><code>numinput(title, prompt)</code>: Pop-up number box.</li>
+                     </ul>
+                `
+            },
+            {
+                id: "screen",
+                title: "6. Screen Control",
+                content: `
+                    <h1>Screen & Window Control</h1>
+                    <p>Manage the main window.</p>
+
+                    <h3>Window Settings</h3>
+                    <ul>
+                        <li><code>bgcolor(color)</code>: Set background color.</li>
+                        <li><code>bgpic(picname)</code>: Set background image.</li>
+                        <li><code>screensize(w, h)</code>: Set drawing area size.</li>
+                        <li><code>title(str)</code>: Set window title bar text.</li>
+                        <li><code>setup(width, height)</code>: Set window size.</li>
+                        <li><code>mode(mode)</code>: 'standard', 'logo', or 'world'.</li>
+                        <li><code>setworldcoordinates(llx, lly, urx, ury)</code>: Custom coordinate system.</li>
+                    </ul>
+
+                    <h3>Animation Control</h3>
+                    <ul>
+                        <li><code>tracer(n, delay)</code>: Turn off animation (n=0) for instant drawing.</li>
+                        <li><code>update()</code>: Force screen update (used with tracer).</li>
+                        <li><code>delay(d)</code>: Set drawing delay.</li>
+                    </ul>
+                    
+                    <h3>Closing</h3>
+                    <ul>
+                        <li><code>bye()</code>: Close the window.</li>
+                        <li><code>exitonclick()</code>: Close when clicked.</li>
+                        <li><code>clearscreen()</code> | <code>clear()</code>: Delete drawings & reset background.</li>
+                        <li><code>resetscreen()</code> | <code>reset()</code>: Delete drawings & reset turtles.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "advanced",
+                title: "7. Advanced & Special",
+                content: `
+                    <h1>Advanced Classes & Functions</h1>
+                    <p>For complex applications and custom shapes.</p>
+
+                    <h3>Polygon Management</h3>
+                    <ul>
+                        <li><code>begin_poly()</code>: Start recording a polygon.</li>
+                        <li><code>end_poly()</code>: Stop recording.</li>
+                        <li><code>get_poly()</code>: Return the recorded polygon.</li>
+                        <li><code>register_shape(name)</code> | <code>addshape()</code>: Add custom shape.</li>
+                        <li><code>getshapes()</code>: List all available shapes.</li>
+                    </ul>
+
+                    <h3>Global & Object Access</h3>
+                    <ul>
+                        <li><code>turtles()</code>: List of all turtles.</li>
+                        <li><code>getscreen()</code>: Return the Screen object.</li>
+                        <li><code>getturtle()</code>: Return the Turtle object.</li>
+                        <li><code>getpen()</code>: Return the Pen object.</li>
+                        <li><code>getcanvas()</code>: Get Tkinter canvas (advanced).</li>
+                        <li><code>clone()</code>: Create a copy of the turtle.</li>
+                    </ul>
+
+                    <h3>Special Classes</h3>
+                    <ul>
+                        <li><code>turtle.Screen</code>: Singleton screen object.</li>
+                        <li><code>turtle.TurtleScreen</code>: Base class for screen.</li>
+                        <li><code>turtle.RawTurtle</code> / <code>turtle.RawPen</code>: Turtle on a specific canvas.</li>
+                        <li><code>turtle.ScrolledCanvas</code>: Canvas with scrollbars.</li>
+                        <li><code>turtle.Shape</code>: Shape data class.</li>
+                        <li><code>turtle.Vec2D</code>: 2D Vector class.</li>
+                        <li><code>turtle.Terminator</code>: Exception raised on exit.</li>
+                    </ul>
+                    
+                    <h3>Other</h3>
+                    <ul>
+                        <li><code>write(arg, align, font)</code>: Write text on screen.</li>
+                        <li><code>undo()</code>: Undo last action.</li>
+                        <li><code>undobufferentries()</code>: Count undoable actions.</li>
+                        <li><code>setundobuffer(size)</code>: Set undo memory limit.</li>
+                        <li><code>degrees()</code> / <code>radians()</code>: Set angle measurement unit.</li>
+                        <li><code>colormode(cmode)</code>: 1.0 (RGB float) or 255 (RGB int).</li>
+                        <li><code>write_docstringdict(file)</code>: Write docs to file.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- APP LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        let currentIndex = 0;
+
+        function renderSidebar() {
+            sidebar.innerHTML = '';
+            tutorialData.forEach((chapter, index) => {
+                const div = document.createElement('div');
+                div.className = `nav-item ${index === currentIndex ? 'active' : ''}`;
+                div.innerText = chapter.title;
+                div.onclick = () => loadChapter(index);
+                sidebar.appendChild(div);
+            });
+        }
+
+        function loadChapter(index) {
+            currentIndex = index;
+            renderSidebar(); // Update active state
+            
+            const chapter = tutorialData[index];
+            
+            // Generate Navigation Buttons
+            const prevBtn = index > 0 
+                ? `<div class="nav-btn" onclick="loadChapter(${index - 1})">← Previous</div>` 
+                : '<div></div>';
+            
+            const nextBtn = index < tutorialData.length - 1 
+                ? `<div class="nav-btn" onclick="loadChapter(${index + 1})">Next Topic →</div>` 
+                : '<div></div>';
+
+            // Fade Effect (Simple)
+            mainContent.style.opacity = 0;
+            setTimeout(() => {
+                mainContent.innerHTML = `
+                    ${chapter.content}
+                    <div class="page-nav">
+                        ${prevBtn}
+                        ${nextBtn}
+                    </div>
+                `;
+                mainContent.style.opacity = 1;
+                mainContent.scrollTop = 0;
+            }, 100);
+        }
+
+        // --- UTILS ---
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement.nextElementSibling;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "Copied!";
+                setTimeout(() => btn.innerText = originalText, 2000);
+            });
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply simple transition for content
+            mainContent.style.transition = 'opacity 0.2s ease-in-out';
+            loadChapter(0);
+        });
+
+    </script>
+</body>
+</html>

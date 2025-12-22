@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PianoMitra - Profile</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="profile.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="top-bar">
+            <h2>Your Studio</h2>
+            <button id="settings-toggle-btn" class="action-btn" style="background: none; border: none; color: white; font-size: 1.5em; margin-left: auto;">⚙️</button>
+        </header>
+
+        <main class="profile-section">
+            
+            <div id="loading-state" style="text-align: center; padding: 50px; color: #888;">
+                <div style="font-size: 2em; margin-bottom: 10px;">⏳</div>
+                <p>Connecting to Cloud...</p>
+                <div id="debug-log" style="color: #ff3366; background: #222; padding: 10px; margin-top: 20px; font-family: monospace; font-size: 0.8em; border-radius: 5px; display: none;"></div>
+            </div>
+
+            <div id="login-prompt" class="login-prompt-card" style="display: none;">
+                <h3 class="prompt-title">Access Restricted</h3>
+                <p class="prompt-text">Log in to manage your studio.</p>
+                <a href="auth.html" class="control-btn login-btn">Login / Register</a>
+            </div>
+
+            <div id="profile-content" style="display: none;">
+                
+                <div class="profile-header">
+                    <div class="profile-avatar">U</div>
+                    <div class="profile-info">
+                        <div class="name-row">
+                            <h1 class="profile-username" id="profile-display-name">User</h1>
+                            <span id="verified-badge" class="verified-tick" style="display:none;" title="Verified Artist">✓</span>
+                        </div>
+                        <p class="profile-bio" id="profile-display-bio">...</p>
+                        
+                        <button id="open-share-btn" class="control-btn share-trigger-btn">📢 Share to Feed</button>
+                    </div>
+                </div>
+
+                <div class="friends-section-wrapper">
+                    <h4 style="margin: 10px 15px 5px; font-size: 0.9em; color: var(--text-muted);">Friends</h4>
+                    <div id="friends-list-container" class="friends-scroll-container">
+                        <div class="friend-item placeholder">Loading...</div>
+                    </div>
+                </div>
+                
+                <div class="profile-tabs">
+                    <button class="tab-btn active" data-tab="tab-posts">POSTS</button>
+                    <button class="tab-btn" data-tab="tab-plays">TRACKS</button>
+                    <button class="tab-btn" data-tab="tab-tones">ASSETS</button>
+                </div>
+
+                <div id="tab-posts" class="tab-content active">
+                    <div class="limit-info">Posts: <span id="post-count">0</span> / <span id="post-limit">5</span></div>
+                    <div class="vertical-list" id="post-list"></div>
+                </div>
+
+                <div id="tab-plays" class="tab-content">
+                    <div class="limit-info">Tracks: <span id="track-count">0</span> / <span id="track-limit">10</span></div>
+                    <div class="vertical-list" id="play-list"></div>
+                </div>
+
+                <div id="tab-tones" class="tab-content">
+                    <div class="limit-info">Assets: <span id="tone-count">0</span> / <span id="tone-limit">10</span></div>
+                    <div class="vertical-list" id="tone-list"></div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="edit-form" class="edit-form-card" style="display: none;">
+            <h4>Update Details</h4>
+            <input type="text" id="edit-name" placeholder="Display Name">
+            <textarea id="edit-bio" placeholder="Short Bio"></textarea>
+            <button id="save-profile-btn" class="control-btn save-btn">Save Changes</button>
+        </div>
+
+        <div id="share-overlay" class="post-creator" style="display:none;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <h3>Create Post</h3>
+                <button id="close-share-btn" style="background:none; border:none; color:#888;">✕</button>
+            </div>
+            <div class="share-type-switch">
+                <label><input type="radio" name="shareType" value="track" checked> Track</label>
+                <label><input type="radio" name="shareType" value="tone"> Tone/Kit</label>
+            </div>
+            <div class="creator-row">
+                <select id="asset-selector" class="asset-select"><option value="">-- Select Item --</option></select>
+                <select id="preview-tone-selector" class="asset-select" style="max-width: 100px; display:none;">
+                    <option value="PIANO">🎹 Piano</option>
+                    <option value="FLUTE">🌬️ Flute</option>
+                    <option value="SYNTH">⚡ Synth</option>
+                </select>
+            </div>
+            <textarea id="post-content" placeholder="Caption..."></textarea>
+            <button id="publish-post-btn" class="control-btn publish-btn" disabled>Post</button>
+        </div>
+
+        <div id="settings-sidebar">
+            <div class="sidebar-title"><h3>Settings</h3><button id="sidebar-close-btn" class="action-btn">✕</button></div>
+            <button class="setting-item" id="theme-toggle-btn">☀️ Light Mode</button>
+            <button class="setting-item" id="sidebar-edit-profile">✎ Edit Profile</button>
+            <hr style="border:0; border-top:1px solid #444; margin:10px 0;">
+            <a href="help.html" class="setting-item link-item">❓ Help</a>
+            <a href="about.html" class="setting-item link-item">ℹ️ About</a>
+            <button class="setting-item logout" id="sidebar-logout" style="margin-top:10px;">🚪 Logout</button>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Feed</span></a>
+            <a href="profile.html" class="nav-item active"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+            <a href="instrument.html" class="nav-item casio-link"><span class="nav-icon">🎸</span><span class="nav-label">Instrument</span></a>
+            <a href="hunt.html" class="nav-item"><span class="nav-icon">🔎</span><span class="nav-label">Hunt</span></a>
+        </nav>
+    </div>
+
+    <script src="theme.js"></script> 
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2T_hrXC_RZvCvoLc9d9ldpLSb4z03Wyw",
+            authDomain: "music-2af50.firebaseapp.com",
+            databaseURL: "https://music-2af50-default-rtdb.firebaseio.com",
+            projectId: "music-2af50",
+            storageBucket: "music-2af50.firebasestorage.app",
+            messagingSenderId: "607018974762",
+            appId: "1:607018974762:web:d8ea53518e9bb6bd180d53",
+            measurementId: "G-7F6RPG9N0L"
+        };
+
+        // Initialize Firebase
+        try {
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            // Export globals for profile.js
+            window.auth = firebase.auth();
+            window.db = firebase.firestore();
+            window.rtdb = firebase.database();
+            console.log("Firebase Initialized Successfully");
+        } catch (e) {
+            document.getElementById('debug-log').style.display = 'block';
+            document.getElementById('debug-log').innerText = "Config Error: " + e.message;
+        }
+    </script>
+
+    <script src="profile.js"></script>
+
+    <script>
+        setTimeout(() => {
+            const loader = document.getElementById('loading-state');
+            if(loader && loader.style.display !== 'none') {
+                const debugBox = document.getElementById('debug-log');
+                debugBox.style.display = 'block';
+                if(debugBox.innerText === "") {
+                    debugBox.innerText = "System Timeout. \n1. Check internet connection.\n2. Ensure 'config.js' is NOT being loaded twice.\n3. Check 'Authorized Domains' in Firebase Console.";
+                }
+            }
+        }, 6000);
+    </script>
+</body>
+</html>

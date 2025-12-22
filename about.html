@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .about-hero {
+            text-align: center; padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, var(--bg-color) 100%);
+        }
+        .about-hero h1 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 15px; }
+        .about-hero p { color: #ccc; max-width: 700px; margin: 0 auto; font-size: 1.1em; line-height: 1.6; }
+
+        .team-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; padding: 40px 20px; max-width: 900px; margin: 0 auto;
+        }
+        .team-card {
+            background: var(--card-bg-color); border: 1px solid #333;
+            border-radius: 16px; padding: 30px; text-align: center;
+            transition: transform 0.3s;
+        }
+        .team-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--secondary-color);
+        }
+        
+        .role-badge {
+            background: rgba(0, 191, 255, 0.1); color: var(--secondary-color);
+            padding: 6px 15px; border-radius: 20px; 
+            font-size: 0.8em; font-weight: bold;
+            display: inline-block; margin-bottom: 15px;
+        }
+        
+        .handle-link {
+            display: block; margin-top: 10px; color: #888; text-decoration: none; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; gap: 8px; /* Added flex to align img and text */
+        }
+        .handle-link:hover { color: var(--secondary-color); }
+
+        /* Social Icons Row */
+        .social-icons { margin-top: 15px; display: flex; justify-content: center; gap: 15px; }
+        .icon { width: 24px; height: 24px; fill: #888; transition: fill 0.2s; }
+        .icon:hover { fill: var(--secondary-color); }
+
+        .back-btn {
+            display: inline-block; margin: 20px; color: #888; text-decoration: none; font-weight: bold;
+        }
+
+        body.light-mode .team-card { background: #fff; border-color: #ddd; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <h2>About PianoMitra ℹ️</h2>
+        </header>
+
+        <main style="overflow-y: auto; height: calc(100vh - 60px);">
+            <a href="index.html" class="back-btn">← Back to Home</a>
+            
+            <section class="about-hero">
+                <h1>Learn. Play. Connect.</h1>
+                <p>
+                    PianoMitra is a modern platform designed for music enthusiasts. 
+                    Whether you are a beginner learning notes or a pro looking for challenges, 
+                    our tools help you play piano, learn from AI, and share your creativity with the world.
+                </p>
+            </section>
+
+            <h2 style="text-align: center; margin-top: 30px; color: var(--text-main);">Meet the Team</h2>
+
+            <div class="team-grid">
+                
+                <article class="team-card">
+                    <h3 style="color: var(--text-main); font-size: 1.6em; margin-bottom: 5px;">Moksh Jalendra</h3>
+                    <div class="role-badge">Full Stack Developer & Creator</div>
+                    
+                    <a href="https://instagram.com/mokshjalendra" target="_blank" class="handle-link">
+                       <img src="assets/inst.png" alt="Insta" style="width: 20px; height: 20px;"> @mokshjalendra
+                    </a>
+                    <a href="mailto:mokshjalendra33@gmail.com" class="handle-link" style="font-size:0.9em; font-weight:normal;">
+                        ✉️ mokshjalendra33@gmail.com
+                    </a>
+                </article>
+
+                <article class="team-card">
+                    <h3 style="color: var(--text-main); font-size: 1.6em; margin-bottom: 5px;">[Manager Name]</h3>
+                    <div class="role-badge">Operations Manager</div>
+                    
+                    <a href="#" class="handle-link">
+                        <img src="assets/inst.png" alt="Insta" style="width: 20px; height: 20px;"> @manager_handle
+                    </a>
+                </article>
+
+            </div>
+
+            <footer style="text-align: center; padding: 40px 20px; color: #666; font-size: 0.9em; border-top: 1px solid #333; margin-top: 40px;">
+                <p style="font-weight:bold; color:var(--text-main); margin-bottom:10px;">Official Channels</p>
+                <div style="display:flex; justify-content:center; gap:20px; margin-bottom:20px; align-items: center;">
+                    <span style="display: flex; align-items: center; gap: 5px;">
+                        <img src="assets/inst.png" alt="Insta" style="width: 20px; height: 20px;"> pianomitra_official
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 5px;">
+                        <img src="assets/yt.png" alt="YT" style="width: 20px; height: 20px;"> pianomitra_official
+                    </span>
+                </div>
+                <p>&copy; 2025 PianoMitra. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+    <script src="theme.js"></script>
+</body>
+</html>

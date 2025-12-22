@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to play the Piano Studio. Understand waveforms, sustain, recording melodies, and using the physics-based scroll.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2620293665503385"
+     crossorigin="anonymous"></script>
+    <title>The Piano Studio Guide - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article-header { border-bottom: 1px solid #333; margin-bottom: 30px; padding-bottom: 20px; }
+        .article-header h1 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 10px; }
+        .meta-info { color: var(--secondary-color); font-weight: bold; font-size: 0.9em; text-transform: uppercase; }
+        .content-body { color: var(--text-color); font-size: 1.1em; line-height: 1.8; }
+        .content-body h2 { color: var(--text-main); margin-top: 40px; margin-bottom: 20px; font-size: 1.5em; border-left: 4px solid var(--secondary-color); padding-left: 15px; }
+        .content-body p { margin-bottom: 20px; color: #ccc; }
+        .content-body ul { margin-bottom: 20px; padding-left: 20px; color: #bbb; }
+        
+        body.light-mode .content-body p, body.light-mode .content-body ul { color: #333; }
+        body.light-mode .article-header { border-color: #ddd; }
+        
+        .cta-box { background: var(--card-bg-color); border: 1px solid var(--secondary-color); padding: 30px; border-radius: 12px; margin-top: 60px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="app-container" style="height: auto; overflow-y: auto;">
+        
+        <header class="top-bar">
+            <h2>PianoMitra Knowledge Base 📚</h2>
+        </header>
+
+        <nav class="custom-nav" style="padding: 15px 20px; border-bottom: 1px solid rgba(100,100,100,0.2);">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none; margin-right: 15px;">Home</a>
+            <a href="blog.html" style="color: var(--secondary-color); text-decoration: none; font-weight: bold;">← Back to All Articles</a>
+        </nav>
+
+        <main class="article-container">
+            
+            <header class="article-header">
+                <span class="meta-info">Tutorial • 10 Min Read</span>
+                <h1>The Piano Studio: Synthesis, Physics, and Performance</h1>
+            </header>
+
+            <div class="content-body">
+                <p>The piano is often called the king of instruments. It covers the entire frequency spectrum of the orchestra, from the deepest lows to the shimmering highs. PianoMitra’s <a href="casio.html" style="color:var(--secondary-color)">Piano Studio</a> brings this experience to the web, but with a twist: it is a fully digital, physics-enabled synthesizer. This guide will walk you through the unique features of our engine, how to navigate the 24-key interface, and the science behind the sounds you are creating.</p>
+
+                <h2>The Science of Sound: Understanding Waveforms</h2>
+                <p>When you press a key in the Piano Studio, the app doesn't just play a recording. It generates a sound wave in real-time using math. Understanding these waves allows you to choose the right "voice" for your music.</p>
+                <ul>
+                    <li><strong>Triangle Wave (Piano):</strong> This is the default setting. A triangle wave contains only odd harmonics, meaning it sounds smooth but has enough "bite" to be heard clearly. It mimics the soft hammers of a felt piano.</li>
+                    <li><strong>Sine Wave (Flute):</strong> The purest form of sound, containing no overtones. This setting is perfect for playing smooth, flowing melodies or "pads" that sit in the background of a mix. It sounds very much like a blown bottle or a flute.</li>
+                    <li><strong>Sawtooth Wave (Synth):</strong> This waveform is jagged and rich in harmonics. It sounds buzzy, sharp, and electronic. It is the staple sound of 1980s pop music and modern EDM. Use this when you want your melody to stand out aggressively.</li>
+                </ul>
+
+                <h2>Navigating the Interface: The Physics Engine</h2>
+                <p>One of the biggest challenges in designing a mobile piano is screen real estate. A full piano has 88 keys; a phone screen can comfortably fit about 7. To solve this, we implemented a custom physics-based scrolling engine.</p>
+                <p>You will notice two rows of keys. The bottom row is the "Main Keyboard," where you play. The top row is the "Reference Scroller." These two are linked mathematically. When you drag the top scroller, the bottom keyboard moves in sync, but at a different ratio. This allows you to quickly jump from C3 (low notes) to C6 (high notes) with a single swipe. The inertia calculation ensures that the scrolling feels natural—if you flick it hard, it spins fast and slowly friction brings it to a halt. This intuitive navigation allows virtuoso playing even on small screens.</p>
+
+                <h2>The Sustain Function</h2>
+                <p>On a physical piano, the sustain pedal lifts the dampers off the strings, allowing them to ring out even after you lift your finger. In PianoMitra, clicking the "Sustain" button (or the orange "SUS" indicator) changes the decay algorithm of the audio engine.</p>
+                <p>Normally, when you release a key, the synthesizer triggers a "release" phase of 0.1 seconds, silencing the note almost instantly. When Sustain is active, this release phase is extended to 2.0 seconds. This allows you to build complex chords by playing one note at a time, letting them blend together. Be careful, though—too much sustain can make your mix sound muddy!</p>
+
+                <h2>Recording Melodies</h2>
+                <p>Recording in the Piano Studio captures two distinct data points: Note and Duration. Unlike the drum machine, where a hit is just a point in time, a piano note has a start time and an end time.</p>
+                <p>When you enter "Track Mode" and hit record, the system logs the exact millisecond you press the key (Note On) and the exact duration you hold it (Note Off). This allows for expressive playing. You can play short, staccato notes (jumping quickly) or long, legato passages (smooth and connected). When you save your track, this data is compressed into a JSON object and uploaded to your user profile.</p>
+
+                <h2>Practice Mode: The "Simon Says" Game</h2>
+                <p>Learning music should be fun. The "Learn" button activates a gamified memory mode. The system will play a short sequence of notes (highlighting them in blue) and then wait for you to repeat them.</p>
+                <p>This utilizes a "Call and Response" pedagogy. By forcing you to watch, listen, and then repeat, you are training your ear and your visual memory simultaneously. As you succeed, the sequences get longer and more complex, gradually teaching you full melodies without you realizing you are studying.</p>
+
+                <h2>Conclusion</h2>
+                <p>The Piano Studio is a versatile tool. Whether you are sketching out a melody for a new song using the Sawtooth wave or practicing your scales using the Triangle wave, the underlying technology works to ensure high fidelity and low latency. Remember to utilize the scroll bar to access the full range of octaves!</p>
+            </div>
+
+            <div class="cta-box">
+                <h3>Start playing today</h3>
+                <p>The keys are waiting. No download required.</p>
+                <a href="casio.html" class="control-btn" style="background: var(--primary-color); color: white; display: inline-block; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 10px;">Open Piano Studio</a>
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.9em; border-top: 1px solid #333; margin-top: 40px;">
+            <p>&copy; 2025 PianoMitra. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="theme.js"></script>
+</body>
+</html>
