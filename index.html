@@ -1,1 +1,101 @@
-<p> this is new repo </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PianoMitra - Online Piano Studio & AI Music Tutor</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+
+    <header class="main-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">🎹 Piano<span>Mitra</span></a>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Menu">☰</button>
+            
+            <nav class="nav-links" id="nav-menu">
+                <a href="blog.html" class="nav-btn">Blog</a>
+                
+                <div class="dropdown">
+                    <a href="tools.html" class="nav-btn dropbtn">Other Tools ▾</a>
+                    <div class="dropdown-content">
+                        <a href="casio.html">🎹 Piano Studio</a>
+                        <a href="octapad.html">🥁 Octapad SPD</a>
+                        <a href="soundlab.html">🎛️ Sound Lab</a>
+                        <a href="ai.html">🤖 AI Tutor</a>
+                    </div>
+                </div>
+
+                <a href="dev.html" class="nav-btn dev-zone">Developer Zone</a>
+                <a href="auth.html" class="login-btn">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Master Music with <span class="highlight">AI & Synthesis</span></h1>
+                <p>Experience the future of music learning. Play, record, and create with our professional-grade web instruments.</p>
+                <div class="hero-btns">
+                    <a href="instrument.html" class="cta-btn primary">Start Playing</a>
+                    <a href="hunt.html" class="cta-btn secondary">Join Challenges</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <span class="feat-icon">🎹</span>
+                <h3>Web Synthesis</h3>
+                <p>Real-time audio generation using Web Audio API. No samples, just pure math and sound.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feat-icon">🤖</span>
+                <h3>AI Mitra Bot</h3>
+                <p>Your personal music tutor powered by Gemini AI. Ask questions or get custom melodies.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feat-icon">🏆</span>
+                <h3>Weekly Hunt</h3>
+                <p>Compete with others in rhythm challenges and climb the global leaderboard.</p>
+            </div>
+        </section>
+
+        <footer class="legal-footer">
+            <div class="legal-links">
+                <a href="blog.html">Blog</a>
+                <a href="help.html">Help</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
+            <p>&copy; 2025 PianoMitra. Developed by Moksh Jalendra</p>
+        </footer>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // Change icon between hamburger and 'X'
+            mobileToggle.innerText = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close menu if clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileToggle.innerText = '☰';
+            }
+        });
+    </script>
+    <script src="theme.js"></script>
+</body>
+</html>
