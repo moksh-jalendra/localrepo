@@ -1,0 +1,79 @@
+/* remixer.css */
+
+.remixer-container {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    padding-bottom: 150px; /* Space for master controls */
+}
+
+.layer-card {
+    background: var(--card-bg-color);
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid var(--secondary-color);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.layer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.track-select {
+    width: 100%;
+    padding: 12px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 8px;
+    font-size: 0.9em;
+    outline: none;
+}
+
+.layer-meta {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    color: var(--text-muted);
+}
+
+.master-controls {
+    position: fixed;
+    bottom: 80px; /* Above bottom nav */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: flex;
+    gap: 20px;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+    z-index: 100;
+}
+
+.control-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.control-btn.play { background: #4af626; color: #000; }
+.control-btn.stop { background: #ff3366; color: #fff; }
+.control-btn:active { transform: scale(0.95); }

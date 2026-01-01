@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Track Remixer - PianoMitra</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="remixer.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <a href="instrument.html" class="back-btn" style="text-decoration: none; color: white; font-size: 1.5em; margin-right: 15px;">←</a>
+            <h2>Remixer Studio 🎚️</h2>
+            <button id="add-layer-btn" class="action-btn" style="margin-left: auto; background: var(--secondary-color); border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer;">+ Add Layer</button>
+        </header>
+
+        <main class="remixer-container">
+            <div id="layers-list">
+                </div>
+
+            <div id="empty-state" style="text-align: center; padding: 50px; color: #666;">
+                <p>Loading your saved tracks...</p>
+            </div>
+        </main>
+
+        <div class="master-controls">
+            <button id="master-play" class="control-btn play">▶ Play Mix</button>
+            <button id="master-stop" class="control-btn stop">⏹ Stop</button>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="feed.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Feed</span></a>
+            <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a>
+            <a href="instrument.html" class="nav-item active"><span class="nav-icon">🎸</span><span class="nav-label">Studio</span></a>
+            <a href="hunt.html" class="nav-item"><span class="nav-icon">🔎</span><span class="nav-label">Hunt</span></a>
+        </nav>
+    </div>
+
+    <script src="remixer.js"></script>
+</body>
+</html>
