@@ -28,6 +28,8 @@ while True :
         break
     if count % n == 0 :
         cv2.imwrite(f"frame/frame {count}.jpg",frame)
+        cv2.imshow('vid',frame)
+        cv2.waitKey(0d)
 
     count=count+1
 
