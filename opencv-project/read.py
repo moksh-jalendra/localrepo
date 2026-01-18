@@ -8,6 +8,7 @@ while True :
     
 
     isTrue , frame = capture.read()
+    # is true is used for check frame avilable or not and we read capture using capture.read()
     
     cv2.imshow('video ',frame)
     
