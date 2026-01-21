@@ -1,0 +1,25 @@
+:root{
+    --primary-color : rgb(230, 205, 205);
+    
+    
+}
+body{
+    display: flex;
+    justify-content: center;
+    background: var(--primary-color);
+
+}
+.blogs{
+    display: flex;
+    background: #000;
+    width: 50px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+.updates{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffa3a3;
+}
