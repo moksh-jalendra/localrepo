@@ -23,3 +23,10 @@ body{
     align-items: center;
     background: #ffa3a3;
 }
+header{
+    background-color: #ffa3a3;
+    
+}
+footer{
+    background-color: #4e4343;
+}

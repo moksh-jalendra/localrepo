@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>bg remover </title>
 </head>
 <body>
@@ -11,22 +12,40 @@
         <header>
             <h1> background remover tool</h1>
         </header>
-        <div class="container">
-            <div class="vid"> 
-                <div class = "sample">
-                    <img draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
-                </div>
-                <div class="drop">
-                    <div ondragover="event.preventDefault()">
-                        
+        <main>
+            <div class = " video player">
+                <div class="container">
+                    <div class="vid">
+                        <div class = "sample">
+                            <img height="50px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
+                        </div>
+                        <div class="drop">
+                            <div ondragover="event.preventDefault()">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control">
+
                     </div>
                 </div>
-
             </div>
-            <div class="control">
-
+            <div class="infotable">
+                <table>
+                    <tr>
+                        <th> s no </th>
+                        <th>last update</th>
+                        <th> feture added</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>jan 23 </td>
+                        <td> syntax improved</td>
+                    </tr>
+                </table>
             </div>
-        </div>
+        </main>
+        
         <footer>
             <a href="about.html">about us</a>
             <a href="terms.html">term and condition</a>
