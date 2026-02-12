@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+</head>
+<body>
+    <header>
+        <a href="/"> home </a>
+    </header>
+    <main>
+        <div>
+            <form action="/login" method="POST">
+                <input id="email" type="email"  name ='email'>
+                <label for="email" >entre email </label>
+                <input id="pass" type="password"  name ='password'>
+                <label for="pass">entre password</label>
+                <button type ="submit" >login</button>
+            </form>
+            {% if error %}
+                <p style="color: red;">{{error}}</p>
+            {% endif%}
+        </div>
+    </main>
+</body>
+</html>

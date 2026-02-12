@@ -57,3 +57,38 @@ table{
 th , td {
     border: 2px solid black;
 }
+.vid{
+    display:flex ;
+    flex-direction: column ;
+   
+    
+    
+}
+#vid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 400px;
+    padding: 10px;
+    background-color: rgb(165, 255, 255);
+    border: #922323;
+}
+#vid img{
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+
+}
+.sample{
+    
+    background-color: rgb(67, 62, 62);
+    margin-top: 50px;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}

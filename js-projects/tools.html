@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+            background-color: aqua;
+        }
+        .wrapper{
+            border-radius: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 228, 196, 0.673);
+            height: 90vh;
+            width: 500px;
+            
+            
+        }
+        .bmi{
+            background-color: rgba(179, 150, 150, 0.714);
+            border-radius: 50px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+        }
+        #bmi{
+            display: flex;
+            flex-direction: column;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="wrapper">
+            <div class="bmi">
+                <h2>bmi calculator</h2>
+                <form id="bmi">
+                    <input id="height" type="text">
+                    <label for="height">enter height</label>
+                    </br>
+                    <input id="weight" type="text">
+                    <label for="weight">enter weight</label>
+                    </br>
+                    <input id="age" type="text">
+                    <label for="age">age</label>
+                    </br>
+                    <button id="sub" type="submit">submit</button>
+
+
+                </form>
+            </div>
+
+        </div>
+
+    </main>
+    <script>
+        let hei = document.getElementById("height")
+        let wei = document.getElementById("weight")
+        let age = document.getElementById("age")
+        let sub = document.getElementById('sub')   
+        // const displayrest = document.getElementById('bmi') 
+        const display = document.getElementById('bmi')    
+        sub.addEventListener('click' , calc )
+        function calc(){
+            let height = hei.value
+            let weight = wei.value
+
+            if(Number.isFinite(height) && Number.isFinite(weight)){
+                bmi = weight/(height*height)
+                check(bmi)
+            } else{
+                show('enter valid details')
+            }
+            
+            
+        }
+        function show(z){
+
+
+            display.innerHTML = `<span> ${z} </span> <button id='reset'> try again </button>`
+        }
+
+        function check(val){
+            if(val < 18){
+                show(`your bmi is ${val} and you are underweight `)
+            }
+            if( val > 18 && val < 25 ){
+                show(`your bmi is ${val} and you are Normal weight `)
+            }
+            if(val >25){
+                show(`your bmi is ${val} and you are Overweight`)
+            }
+
+        }
+
+
+
+    </script>
+    
+</body>
+</html>

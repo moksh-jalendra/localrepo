@@ -14,18 +14,23 @@
             <h1> background remover tool</h1>
         </header>
         <main>
-            <div class = " video player">
+            <div class = " videoplayer">
                 <div class="container">
                     <div class="vid">
-                        <div class = "sample">
-                            <img height="50px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
-                        </div>
-                        <div class="drop">
-                            <div ondragover="event.preventDefault()">
+                        <div id="vid" ondrop="dropHandler(event)" ondragover="dragovdrHandler(event)" >
 
-                            </div>
+
                         </div>
-                    </div>
+                    
+                        <div class = "sample">
+                            <hr>
+                            <img id="img1" height="100px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
+                            <img id="img2" height="100px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
+                            <img id="img3" height="100px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
+                            <img id="img3" height="100px" draggable="true" src="monkey.jpg"  ondragstart="Drag(event)">
+                            <hr>
+                        </div>
+                        
                     <div class="control">
 
                     </div>
@@ -85,6 +90,9 @@
     </div>
 
 
-    
+
+
+
+    <script src="script.js"></script>
 </body>
 </html>

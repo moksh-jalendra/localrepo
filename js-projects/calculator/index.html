@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+
+    <main>
+        <div class="wrapper">
+            <input id="screen" type="text"  readonly  >
+            <div class="buttons">
+                <button class="num" id="1" onclick="show(1)" style="border-radius: 10px 10px 0px 10px;"> 1</button>
+                <button class="num" id="2" onclick="show(2)" style="border-radius: 10px 10px 0px 0px ;" > 2</button>
+                <button class="num" id="3" onclick="show(3)"style="border-radius: 10px 10px 10px 0px ;"> 3 </button>
+                <button class="op" id="<=" onclick="show('<=')"style="border-radius: 10px 10px 10px 10px ;" ><=</button>
+
+                <button class="num" id="4" onclick="show(4)" style="border-radius: 10px 0px 0px 10px ;"> 4</button>
+                <button class="num" id="6" onclick="show(5)"style="border-radius: 0px 0px 0px 0px ;" > 5</button>
+                <button class="num" id="7" onclick="show(6)" style="border-radius: 0px 10px 10px 0px ;"> 6</button>
+                <button class="op" id="8" onclick="show('+')" style="border-radius: 10px 10px 10px 10px ;"> +</button>
+
+                <button class="num" id="9" onclick="show(7)" style="border-radius: 10px 0px 10px 10px ;"> 7</button>
+                <button class="num" id="0" onclick="show(8)" style="border-radius: 0px 0px 0px 0px ;"> 8</button>
+                <button class="num" id="+" onclick="show(9)" style="border-radius: 0px 10px 10px 10px ;"> 9</button>
+                <button class="op" id="-" onclick="show('-')" style="border-radius: 10px 10px 10px 10px ;"> -</button>
+
+                <button class="op" id="*" onclick="show('*')"style="border-radius: 10px 10px 10px 10px ;" > *</button>
+                <button class="num" id="0" onclick="show(0)" style="border-radius: 0px 0px 10px 10px ;"> 0</button>
+                <button class="op" id="c" onclick="show('/')" style="border-radius: 10px 10px 10px 10px ;"> /</button>
+                <button class="op" id="/" onclick="show('c')" style="border-radius: 100px 100px 100px 100px ; background-color: rgb(185, 123, 106);"> c</button>
+                <button class="en" id="en" onclick="show('enter')" > enter</button>
+            </div>
+        </div>
+    </main>
+
+    
+    <script src="script.js"></script>
+    
+</body>
+</html>

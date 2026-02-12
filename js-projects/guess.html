@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            background-color: rgb(8, 60, 111);
+        }
+        main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            border-radius: 60px;
+            background-color: rgba(240, 248, 255, 0.686);
+        }
+        #infoscreen{
+            margin: 5px ;
+            flex-shrink: 0;
+            display: flex ;
+            background-color: rgba(52, 233, 233, 0.392);
+            justify-content: space-around;
+            width: 100%;
+            height: 10%;
+        }
+        .main{
+            padding: 50px;
+
+            flex-shrink: 0;
+            display:flex ;
+            gap: 50px;
+            justify-content: center ;
+            width:80% ;
+
+
+        }
+        form{
+            flex-shrink: 0;
+            display: flex;
+            border-radius: 70px;
+            
+            background-color: rgba(201, 154, 124, 0.607);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            height: 300px;
+            width: 50%;
+            
+        }
+        #gameover{
+            margin: 5px ;
+            display: flex ;
+            flex-direction: column;
+            flex-shrink: 0;
+            background-color: rgba(52, 233, 233, 0.392);
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 10%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>number gusing game </h1>
+    </header>
+    <main>
+        <div id="rules"  style="outline: 1px solid rgb(0, 0, 0); margin-top: 10px; border-radius: 10%;"> 
+            <h2 style="text-align: center;"> rules </h2>
+            <ul >
+                <li>choose any no between 1 to 100 </li>
+                <li>you and your opponent both get 10 chance</li>
+                <li>who guse corect first that will win </li>
+            </ul>
+        </div>
+        <div id="infoscreen" > 
+
+            <div>
+                <h3>player1 turn left 10</h3> 
+                <p> previous guess :</p>
+            </div>
+            <div>
+                <h3>player2 turn left 10</h3>
+                <p> previous guess :</p>
+            </div>
+
+
+        </div>
+        <div id="gameover">
+            <h3>plyer 1 round </h3>
+
+        </div>
+        <div class="main">
+            <form id="player1"> 
+                <h3> player1 </h3>
+                <input id="input1" type="text" >
+                <label for="input1">guse your number </label>
+                <button id="but2" type="submit"> entre </button>
+
+            </form>
+
+            <form id="player2">
+                <h3>player2  </h3>
+                <input id="input2" type="text">
+                <label for="input2">guse your number </label>
+                <button  id="but2" type="submit" > entre </button>
+
+            </form>
+
+            
+        </div>
+    </main>
+    
+    <script>
+        let num = Math.round(((Math.random())*100) + 1)
+        let game = true
+        let round = 1
+        let counter1 = 10
+        let counter2 = 10
+        let guess1 = ''
+        let guess2 = ''
+        const data = document.getElementById('infoscreen')
+        const form2 = document.getElementById('player2')
+        const val2 = document.getElementById('input2')
+        const val1 = document.getElementById('input1')
+        const form1 = document.getElementById('player1')
+        const info = document.getElementById('gameover')
+        
+
+        
+        form1.addEventListener('submit' , function(ev){
+            ev.preventDefault()
+            if (!game || counter1 == 0 ) return 
+            let val = parseInt(val1.value)
+            
+            if(round % 2 != 0){
+                
+                round += 1
+                counter1 -= 1
+                guess1 = guess1 + `${val} ,`
+                check(val )
+            }
+        })
+
+        form2.addEventListener('submit' , function(ev){
+            ev.preventDefault()
+            if (!game || counter2 == 0) return 
+            let val = parseInt(val2.value)
+            
+            if(round % 2 == 0){
+               
+                round++
+                counter2 -= 1
+                guess2 = guess2 + `${val} ,`
+                check(val )
+            }
+        })
+        
+
+        function check(key ){
+            if(num == key){
+                show('you win')
+                newgame()
+            } if(num > key){
+                show('your num is less then original')
+            } if(num < key){
+                show('your num is greter then orignal')
+            }
+        }
+
+        function show(val){
+            data.innerHTML = `
+            <div>
+                <h3>player1 turn left ${counter1}</h3> 
+                <p> previous guess : ${guess1}</p>
+            </div>
+            <div>
+                <h3>player2 turn left ${counter2}</h3>
+                <p> previous guess : ${guess2}</p>
+            </div>
+            
+            
+            `
+            info.innerHTML = `
+             <h3>${val}</h3>
+                `
+            
+        }
+
+        function newgame(){
+            game = false
+            info.innerHTML = `
+            <h3> game over  </h3>
+            <button onclick = 'reset()'> new game </button>
+                `
+        }
+
+        function reset(){
+
+            window.location.replace(window.location.href);
+        }
+
+    </script>
+</body>
+</html>

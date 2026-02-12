@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        main{
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            background-color: rgb(198, 137, 125);
+        }
+        .clock{
+            display: flex;
+            align-items: center;
+            box-shadow: -30px -10px 30px ;
+            border-radius: 70px;
+            justify-content: center;
+            background-color: rgba(81, 211, 196, 0.562);
+            color: white;
+            height: 30%;
+            width: 50%;
+            font-size: 60px;
+        }
+        #alarm{
+
+            margin-top: 70px;
+            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 20%;
+            background-color: rgba(137, 43, 226, 0.325);
+            border-radius: 10px;
+            
+        }
+        .box{
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            
+            
+            border-radius: 10px;
+            background-color: rgba(0, 255, 255, 0.582);
+            height: 100%;
+            margin: 20px;
+            width: 100px;
+        }
+
+            
+        
+    </style>
+
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="clock">
+
+            <span id="screen">  </span>
+
+        </div>
+        <div id="alarm">
+            <div class="box" id="block">
+                <input id="timer" type="time" style="display: none;">
+                <label id="timlab" for="timer">new alarm</label>
+            </div>
+            
+            
+
+        </div>
+    </main>
+
+<script>
+
+    const label = document.getElementById('timlab')
+    const clock = document.getElementById('screen')
+    const timer = document.getElementById('timer')
+    const block = document.getElementById('alarm')
+
+    
+    
+    let timevar = ''
+    let alrmval =[]
+
+    label.addEventListener('click',(e) => {
+        e.preventDefault()
+        timer.showPicker()
+    })
+    timer.addEventListener('change' ,() => {
+        timevar = timer.value 
+        console.log(typeof(timevar) , timevar)
+        alrmval.push(timevar)
+        console.log(alrmval)
+        record()
+
+    })
+
+    setInterval(function(){
+        let date = new Date()
+        
+        let time = date.toLocaleTimeString('en-GB' , {
+            hour : '2-digit',
+            minute : '2-digit',
+            hour12 : false
+        })
+        clock.innerHTML = time
+        check(time)
+        
+
+    } , 1000)
+
+    function check(val){
+        console.log(val)
+        
+        op = String(val)
+        
+        for (let i = 0 ; i < alrmval.length ; i++){
+             console.log(op , alrmval[i])
+             if( op == alrmval[i]){
+                console.log('alarm working')
+                new Audio('test.mp3').play();
+             }
+           
+        }
+
+        
+        
+    }
+
+
+
+
+    function record(){
+        let newdiv = document.createElement('div')
+        for ( let i = 0 ; i < alrmval.length ; i++ ){
+            
+            newdiv.innerHTML = `
+                 <h3> hello world </h3> 
+                 <P> next alram in ${alrmval[i]} </p>
+                 <button onclick= rem("${alrmval[i]}") > cancle alaram </button>`
+        
+            newdiv.classList.add('box');
+            newdiv.id = `${alrmval[i]}`
+            
+            block.appendChild(newdiv)
+
+        }
+        
+
+    }
+
+    function rem(val){
+        console.log(alrmval , 'helloworld')
+
+        let selected_val = document.getElementById(`${val}`)
+        console.log(selected_val)
+        let rt = alrmval.indexOf(val)
+
+        alrmval.splice(rt ,1)
+
+        block.removeChild(selected_val)
+
+    }
+
+    
+
+    
+
+
+</script>
+    
+</body>
+</html>
